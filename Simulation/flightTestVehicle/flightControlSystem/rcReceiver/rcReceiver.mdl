@@ -15,17 +15,17 @@ Model {
     }
     NumRootOutports	    2
     Outport {
-      Name		      "rcDownlink_bus"
-      BusObject		      ""
-      BusOutputAsStruct	      "off"
-    }
-    Outport {
       Name		      "sbus"
       BusObject		      ""
       BusOutputAsStruct	      "off"
     }
+    Outport {
+      Name		      "rcDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.2"
+    ComputedModelVersion    "1.3"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -83,9 +83,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 13:29:08 2015"
-  RTWModifiedTimeStamp	  365347746
-  ModelVersionFormat	  "1.%<AutoIncrement:2>"
+  LastModifiedDate	  "Mon Sep 28 15:29:23 2015"
+  RTWModifiedTimeStamp	  365354961
+  ModelVersionFormat	  "1.%<AutoIncrement:3>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -878,18 +878,18 @@ Model {
     }
     Block {
       BlockType		      Outport
-      Name		      "rcDownlink_bus"
-      SID		      "4"
-      Position		      [345, 128, 375, 142]
-      ZOrder		      4
-      IconDisplay	      "Port number"
-    }
-    Block {
-      BlockType		      Outport
       Name		      "sbus"
       SID		      "3"
       Position		      [345, 48, 375, 62]
       ZOrder		      3
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "rcDownlink_bus"
+      SID		      "4"
+      Position		      [345, 128, 375, 142]
+      ZOrder		      4
       Port		      "2"
       IconDisplay	      "Port number"
     }

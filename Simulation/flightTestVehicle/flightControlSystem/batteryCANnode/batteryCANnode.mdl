@@ -1,5 +1,5 @@
 Model {
-  Name			  "airDataCANnode"
+  Name			  "batteryCANnode"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -10,7 +10,7 @@ Model {
       BusObject		      ""
     }
     Inport {
-      Name		      "airData"
+      Name		      "batteryData"
       BusObject		      ""
     }
     NumRootOutports	    1
@@ -20,7 +20,7 @@ Model {
       BusOutputAsStruct	      "off"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.4"
+    ComputedModelVersion    "1.5"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,7 +42,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1822.0, 156.0, 1179.0, 701.0]
+      Location		      [168.0, 65.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -67,8 +67,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[1129.0, 527.0]
-	ZoomFactor		[1.25]
-	Offset			[17.0, 21.399999999999977]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -78,9 +78,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 15:37:06 2015"
-  RTWModifiedTimeStamp	  365355424
-  ModelVersionFormat	  "1.%<AutoIncrement:4>"
+  LastModifiedDate	  "Mon Sep 28 15:37:13 2015"
+  RTWModifiedTimeStamp	  365355431
+  ModelVersionFormat	  "1.%<AutoIncrement:5>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -838,8 +838,8 @@ Model {
     }
   }
   System {
-    Name		    "airDataCANnode"
-    Location		    [1822, 156, 3001, 857]
+    Name		    "batteryCANnode"
+    Location		    [168, 65, 1347, 766]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -851,32 +851,32 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3"
+    SIDHighWatermark	    "4"
     Block {
       BlockType		      Inport
       Name		      "canInput"
-      SID		      "3"
-      Position		      [75, 153, 105, 167]
-      ZOrder		      3
+      SID		      "2"
+      Position		      [90, 108, 120, 122]
+      ZOrder		      2
       IconDisplay	      "Port number"
     }
     Block {
       BlockType		      Inport
-      Name		      "airData"
-      SID		      "1"
-      Position		      [75, 83, 105, 97]
-      ZOrder		      1
+      Name		      "batteryData"
+      SID		      "3"
+      Position		      [90, 173, 120, 187]
+      ZOrder		      3
       Port		      "2"
       IconDisplay	      "Port number"
     }
     Block {
       BlockType		      Outport
       Name		      "canOutput"
-      SID		      "2"
-      Position		      [575, 103, 605, 117]
-      ZOrder		      2
+      SID		      "1"
+      Position		      [195, 108, 225, 122]
+      ZOrder		      1
       IconDisplay	      "Port number"
     }
   }

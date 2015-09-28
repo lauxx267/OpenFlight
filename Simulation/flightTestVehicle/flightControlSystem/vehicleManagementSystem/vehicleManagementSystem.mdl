@@ -1,13 +1,31 @@
 Model {
-  Name			  "aircraftSimulation"
+  Name			  "vehicleManagementSystem"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    0
-    NumRootOutports	    0
+    NumRootInports	    2
+    Inport {
+      Name		      "ethernetInput1"
+      BusObject		      ""
+    }
+    Inport {
+      Name		      "ethernetInput2"
+      BusObject		      ""
+    }
+    NumRootOutports	    2
+    Outport {
+      Name		      "ethernetOutput1"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "ethernetOutput2"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.0"
+    ComputedModelVersion    "1.1"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,7 +56,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -53,7 +71,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1145.0, 565.0]
+	Extents			[1129.0, 527.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -65,9 +83,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 25 13:43:12 2015"
-  RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
+  LastModifiedDate	  "Mon Sep 28 15:27:32 2015"
+  RTWModifiedTimeStamp	  365354849
+  ModelVersionFormat	  "1.%<AutoIncrement:1>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -111,7 +129,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "aircraftSimulation"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -788,9 +806,44 @@ Model {
     ToolTip		    "on"
   }
   BlockParameterDefaults {
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
   }
   System {
-    Name		    "aircraftSimulation"
+    Name		    "vehicleManagementSystem"
     Location		    [168, 65, 1347, 766]
     Open		    on
     ModelBrowserVisibility  off
@@ -805,5 +858,40 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "4"
+    Block {
+      BlockType		      Inport
+      Name		      "ethernetInput1"
+      SID		      "1"
+      Position		      [140, 128, 170, 142]
+      ZOrder		      1
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Inport
+      Name		      "ethernetInput2"
+      SID		      "3"
+      Position		      [140, 188, 170, 202]
+      ZOrder		      3
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "ethernetOutput1"
+      SID		      "2"
+      Position		      [450, 128, 480, 142]
+      ZOrder		      2
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "ethernetOutput2"
+      SID		      "4"
+      Position		      [450, 188, 480, 202]
+      ZOrder		      4
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
   }
 }

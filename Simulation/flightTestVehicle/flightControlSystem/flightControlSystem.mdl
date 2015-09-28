@@ -34,10 +34,13 @@ Model {
       BusOutputAsStruct	      "off"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.7"
-    NumModelReferences	    7
+    ComputedModelVersion    "1.12"
+    NumModelReferences	    8
     ModelReference {
       ModelRefBlockPath	      "flightControlSystem/airDataCANnode|airDataCANnode"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/batteryCANnode|batteryCANnode"
     }
     ModelReference {
       ModelRefBlockPath	      "flightControlSystem/flightManagementUnit|flightManagementUnit"
@@ -77,7 +80,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1592.0, -8.0, 1696.0, 1066.0]
+      Location		      [1592.0, 0.0, 1696.0, 1062.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -101,7 +104,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1646.0, 892.0]
+	Extents			[1646.0, 888.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -113,9 +116,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 15:01:35 2015"
-  RTWModifiedTimeStamp	  365348311
-  ModelVersionFormat	  "1.%<AutoIncrement:7>"
+  LastModifiedDate	  "Mon Sep 28 15:38:05 2015"
+  RTWModifiedTimeStamp	  365355482
+  ModelVersionFormat	  "1.%<AutoIncrement:12>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -883,7 +886,7 @@ Model {
   }
   System {
     Name		    "flightControlSystem"
-    Location		    [1592, -8, 3288, 1058]
+    Location		    [1592, 0, 3288, 1062]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -897,7 +900,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "35"
+    SIDHighWatermark	    "36"
     Block {
       BlockType		      Inport
       Name		      "telemetryUplink_bus"
@@ -911,7 +914,7 @@ Model {
       BlockType		      Inport
       Name		      "rcUplink_bus"
       SID		      "3"
-      Position		      [115, 228, 145, 242]
+      Position		      [115, 418, 145, 432]
       ZOrder		      3
       BackgroundColor	      "orange"
       Port		      "2"
@@ -921,7 +924,7 @@ Model {
       BlockType		      Inport
       Name		      "sensor_bus"
       SID		      "6"
-      Position		      [115, 453, 145, 467]
+      Position		      [115, 598, 145, 612]
       ZOrder		      6
       BackgroundColor	      "orange"
       Port		      "3"
@@ -931,32 +934,18 @@ Model {
       BlockType		      ModelReference
       Name		      "airDataCANnode"
       SID		      "32"
-      Ports		      []
-      Position		      [730, 461, 930, 554]
+      Ports		      [2, 1]
+      Position		      [1040, 556, 1240, 649]
       ZOrder		      17
       BlockMirror	      on
       NamePlacement	      "alternate"
       ModelNameDialog	      "airDataCANnode.mdl"
       SimulationMode	      "Normal"
-      ModelReferenceVersion   "1.0"
-      CopyOfModelName	      "airDataCANnode.mdl"
-      DefaultDataLogging      on
-    }
-    Block {
-      BlockType		      ModelReference
-      Name		      "flightManagementUnit"
-      SID		      "30"
-      Ports		      [3, 1]
-      Position		      [395, 360, 615, 520]
-      ZOrder		      15
-      ModelNameDialog	      "flightManagementUnit.mdl"
-      SimulationMode	      "Normal"
-      ModelReferenceVersion   "1.3"
+      ModelReferenceVersion   "1.4"
       List {
 	ListType		InputPortNames
-	port0			"sBus"
-	port1			"ethernetInput"
-	port2			"canInput"
+	port0			"canInput"
+	port1			"airData"
       }
       List {
 	ListType		OutputPortNames
@@ -965,6 +954,83 @@ Model {
       List {
 	ListType		OutputPortOutputBusAsStructs
 	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      CopyOfModelName	      "airDataCANnode.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "batteryCANnode"
+      SID		      "36"
+      Ports		      [2, 1]
+      Position		      [720, 584, 945, 666]
+      ZOrder		      21
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "batteryCANnode.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.5"
+      List {
+	ListType		InputPortNames
+	port0			"canInput"
+	port1			"batteryData"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"canOutput"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      CopyOfModelName	      "batteryCANnode.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "flightManagementUnit"
+      SID		      "30"
+      Ports		      [3, 2]
+      Position		      [540, 345, 760, 505]
+      ZOrder		      15
+      ModelNameDialog	      "flightManagementUnit.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.6"
+      List {
+	ListType		InputPortNames
+	port0			"ethernetInput"
+	port1			"sBus"
+	port2			"canInput"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"ethernetOutput"
+	port1			"canOutput"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
       }
       List {
 	ListType		InputPortLatchByCopyingInsideSignal
@@ -985,25 +1051,50 @@ Model {
       BlockType		      ModelReference
       Name		      "motorDataCANnode"
       SID		      "34"
-      Ports		      []
-      Position		      [1020, 463, 1167, 553]
+      Ports		      [2, 2]
+      Position		      [1140, 397, 1285, 488]
       ZOrder		      19
       ModelNameDialog	      "motorDataCANnode.mdl"
       SimulationMode	      "Normal"
-      ModelReferenceVersion   "1.0"
+      ModelReferenceVersion   "1.3"
+      List {
+	ListType		InputPortNames
+	port0			"motorData"
+	port1			"canInput"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"pwmOutput"
+	port1			"canOutput"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
       CopyOfModelName	      "motorDataCANnode.mdl"
       DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
     }
     Block {
       BlockType		      ModelReference
       Name		      "rcReceiver"
       SID		      "28"
       Ports		      [2, 2]
-      Position		      [395, 214, 615, 301]
+      Position		      [225, 404, 405, 491]
       ZOrder		      13
       ModelNameDialog	      "rcReceiver.mdl"
       SimulationMode	      "Normal"
-      ModelReferenceVersion   "1.2"
+      ModelReferenceVersion   "1.3"
       List {
 	ListType		InputPortNames
 	port0			"rcUplink_bus"
@@ -1011,8 +1102,8 @@ Model {
       }
       List {
 	ListType		OutputPortNames
-	port0			"rcDownlink_bus"
-	port1			"sbus"
+	port0			"sbus"
+	port1			"rcDownlink_bus"
       }
       List {
 	ListType		OutputPortOutputBusAsStructs
@@ -1037,22 +1128,20 @@ Model {
       Name		      "servoCANnode"
       SID		      "31"
       Ports		      [2, 2]
-      Position		      [405, 586, 605, 679]
+      Position		      [820, 396, 1020, 489]
       ZOrder		      16
-      BlockMirror	      on
-      NamePlacement	      "alternate"
       ModelNameDialog	      "servoCANnode.mdl"
       SimulationMode	      "Normal"
-      ModelReferenceVersion   "1.1"
+      ModelReferenceVersion   "1.3"
       List {
 	ListType		InputPortNames
-	port0			"canInput"
-	port1			"analogInput"
+	port0			"analogInput"
+	port1			"canInput"
       }
       List {
 	ListType		OutputPortNames
-	port0			"canOutput"
-	port1			"pwmOutput"
+	port0			"pwmOutput"
+	port1			"canOutput"
       }
       List {
 	ListType		OutputPortOutputBusAsStructs
@@ -1114,20 +1203,47 @@ Model {
       BlockType		      ModelReference
       Name		      "vehicleManagementSystem"
       SID		      "35"
-      Ports		      []
-      Position		      [865, 633, 1072, 728]
+      Ports		      [2, 2]
+      Position		      [400, 210, 605, 305]
       ZOrder		      20
+      BlockMirror	      on
+      NamePlacement	      "alternate"
       ModelNameDialog	      "vehicleManagementSystem.mdl"
       SimulationMode	      "Normal"
-      ModelReferenceVersion   "1.0"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"ethernetInput1"
+	port1			"ethernetInput2"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"ethernetOutput1"
+	port1			"ethernetOutput2"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
       CopyOfModelName	      "vehicleManagementSystem.mdl"
       DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
     }
     Block {
       BlockType		      Outport
       Name		      "telemetryDownlink_bus"
       SID		      "4"
-      Position		      [875, 63, 905, 77]
+      Position		      [700, 63, 730, 77]
       ZOrder		      4
       BackgroundColor	      "lightBlue"
       IconDisplay	      "Port number"
@@ -1136,7 +1252,7 @@ Model {
       BlockType		      Outport
       Name		      "rcDownlink_bus"
       SID		      "5"
-      Position		      [875, 228, 905, 242]
+      Position		      [455, 463, 485, 477]
       ZOrder		      5
       BackgroundColor	      "lightBlue"
       Port		      "2"
@@ -1146,11 +1262,9 @@ Model {
       BlockType		      Outport
       Name		      "actuatorCmd_bus"
       SID		      "7"
-      Position		      [290, 648, 320, 662]
+      Position		      [1375, 333, 1405, 347]
       ZOrder		      7
-      BlockMirror	      on
       BackgroundColor	      "lightBlue"
-      NamePlacement	      "alternate"
       Port		      "3"
       IconDisplay	      "Port number"
     }
@@ -1176,42 +1290,87 @@ Model {
       DstPort		      1
     }
     Line {
-      ZOrder		      4
-      SrcBlock		      "rcReceiver"
+      ZOrder		      18
+      SrcBlock		      "telemetryRadio"
+      SrcPort		      2
+      Points		      [60, 0; 0, 105]
+      DstBlock		      "vehicleManagementSystem"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      19
+      SrcBlock		      "flightManagementUnit"
       SrcPort		      1
+      Points		      [19, 0; 0, -105]
+      DstBlock		      "vehicleManagementSystem"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      20
+      SrcBlock		      "vehicleManagementSystem"
+      SrcPort		      2
+      Points		      [-62, 0; 0, 90]
+      DstBlock		      "flightManagementUnit"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      21
+      SrcBlock		      "vehicleManagementSystem"
+      SrcPort		      1
+      Points		      [-62, 0; 0, -105]
+      DstBlock		      "telemetryRadio"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      22
+      SrcBlock		      "rcReceiver"
+      SrcPort		      2
       DstBlock		      "rcDownlink_bus"
       DstPort		      1
     }
     Line {
-      ZOrder		      7
+      ZOrder		      23
       SrcBlock		      "rcReceiver"
-      SrcPort		      2
-      Points		      [9, 0; 0, 55; -249, 0]
+      SrcPort		      1
       DstBlock		      "flightManagementUnit"
-      DstPort		      1
+      DstPort		      2
     }
     Line {
-      ZOrder		      8
+      ZOrder		      28
       SrcBlock		      "flightManagementUnit"
-      SrcPort		      1
-      Points		      [53, 0; 0, 170]
+      SrcPort		      2
       DstBlock		      "servoCANnode"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      30
+      SrcBlock		      "servoCANnode"
+      SrcPort		      2
+      DstBlock		      "motorDataCANnode"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      31
+      SrcBlock		      "motorDataCANnode"
+      SrcPort		      2
+      Points		      [48, 0; 0, 115]
+      DstBlock		      "airDataCANnode"
       DstPort		      1
     }
     Line {
-      ZOrder		      9
-      SrcBlock		      "servoCANnode"
+      ZOrder		      32
+      SrcBlock		      "airDataCANnode"
       SrcPort		      1
-      Points		      [-35, 0; 0, -115]
+      DstBlock		      "batteryCANnode"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      33
+      SrcBlock		      "batteryCANnode"
+      SrcPort		      1
+      Points		      [-205, 0; 0, -145]
       DstBlock		      "flightManagementUnit"
       DstPort		      3
-    }
-    Line {
-      ZOrder		      10
-      SrcBlock		      "servoCANnode"
-      SrcPort		      2
-      DstBlock		      "actuatorCmd_bus"
-      DstPort		      1
     }
   }
 }
