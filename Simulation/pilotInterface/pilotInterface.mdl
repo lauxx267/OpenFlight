@@ -1,13 +1,22 @@
 Model {
-  Name			  "aircraftSimulation"
+  Name			  "pilotInterface"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    0
-    NumRootOutports	    0
+    NumRootInports	    1
+    Inport {
+      Name		      "rcDownlink_bus"
+      BusObject		      ""
+    }
+    NumRootOutports	    1
+    Outport {
+      Name		      "rcUplink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.0"
+    ComputedModelVersion    "1.2"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +38,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [168.0, 65.0, 1179.0, 701.0]
+      Location		      [1592.0, -8.0, 1696.0, 1066.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +47,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -53,7 +62,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1145.0, 565.0]
+	Extents			[1646.0, 892.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -65,9 +74,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 25 13:43:12 2015"
-  RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
+  LastModifiedDate	  "Mon Sep 28 11:12:16 2015"
+  RTWModifiedTimeStamp	  365339534
+  ModelVersionFormat	  "1.%<AutoIncrement:2>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -111,7 +120,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "aircraftSimulation"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -788,10 +797,69 @@ Model {
     ToolTip		    "on"
   }
   BlockParameterDefaults {
+    Block {
+      BlockType		      BusCreator
+      Inputs		      "4"
+      DisplayOption	      "none"
+      OutDataTypeStr	      "Inherit: auto"
+      NonVirtualBus	      off
+      InheritFromInputs	      on
+    }
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Inherit from 'Constant value'"
+      LockScale		      off
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+      PreserveConstantTs      off
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Terminator
+    }
   }
   System {
-    Name		    "aircraftSimulation"
-    Location		    [168, 65, 1347, 766]
+    Name		    "pilotInterface"
+    Location		    [1592, -8, 3288, 1058]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -805,5 +873,313 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "22"
+    Block {
+      BlockType		      Inport
+      Name		      "rcDownlink_bus"
+      SID		      "1"
+      Position		      [105, 193, 135, 207]
+      ZOrder		      1
+      BackgroundColor	      "orange"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      BusCreator
+      Name		      "Bus\nCreator"
+      SID		      "4"
+      Ports		      [16, 1]
+      Position		      [605, 70, 610, 765]
+      ZOrder		      4
+      ShowName		      off
+      Inputs		      "16"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant"
+      SID		      "5"
+      Position		      [465, 290, 495, 320]
+      ZOrder		      5
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant1"
+      SID		      "6"
+      Position		      [465, 65, 495, 95]
+      ZOrder		      6
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant10"
+      SID		      "16"
+      Position		      [465, 515, 495, 545]
+      ZOrder		      16
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant11"
+      SID		      "17"
+      Position		      [465, 560, 495, 590]
+      ZOrder		      17
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant12"
+      SID		      "18"
+      Position		      [465, 605, 495, 635]
+      ZOrder		      18
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant13"
+      SID		      "19"
+      Position		      [465, 650, 495, 680]
+      ZOrder		      19
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant14"
+      SID		      "20"
+      Position		      [465, 695, 495, 725]
+      ZOrder		      20
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant15"
+      SID		      "21"
+      Position		      [465, 740, 495, 770]
+      ZOrder		      21
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant2"
+      SID		      "8"
+      Position		      [465, 110, 495, 140]
+      ZOrder		      8
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant3"
+      SID		      "9"
+      Position		      [465, 155, 495, 185]
+      ZOrder		      9
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant4"
+      SID		      "10"
+      Position		      [465, 200, 495, 230]
+      ZOrder		      10
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant5"
+      SID		      "11"
+      Position		      [465, 245, 495, 275]
+      ZOrder		      11
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant6"
+      SID		      "12"
+      Position		      [465, 335, 495, 365]
+      ZOrder		      12
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant7"
+      SID		      "13"
+      Position		      [465, 380, 495, 410]
+      ZOrder		      13
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant8"
+      SID		      "14"
+      Position		      [465, 425, 495, 455]
+      ZOrder		      14
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant9"
+      SID		      "15"
+      Position		      [465, 470, 495, 500]
+      ZOrder		      15
+      ShowName		      off
+      Value		      "0"
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator"
+      SID		      "3"
+      Position		      [215, 190, 235, 210]
+      ZOrder		      3
+      ShowName		      off
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "rcUplink_bus"
+      SID		      "2"
+      Position		      [735, 413, 765, 427]
+      ZOrder		      2
+      BackgroundColor	      "lightBlue"
+      IconDisplay	      "Port number"
+    }
+    Line {
+      ZOrder		      2
+      SrcBlock		      "rcDownlink_bus"
+      SrcPort		      1
+      DstBlock		      "Terminator"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      3
+      SrcBlock		      "Bus\nCreator"
+      SrcPort		      1
+      DstBlock		      "rcUplink_bus"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      4
+      SrcBlock		      "Constant1"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      5
+      SrcBlock		      "Constant5"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      5
+    }
+    Line {
+      ZOrder		      6
+      SrcBlock		      "Constant11"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      12
+    }
+    Line {
+      ZOrder		      7
+      SrcBlock		      "Constant6"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      7
+    }
+    Line {
+      ZOrder		      8
+      SrcBlock		      "Constant9"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      10
+    }
+    Line {
+      ZOrder		      9
+      SrcBlock		      "Constant2"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      10
+      SrcBlock		      "Constant"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      6
+    }
+    Line {
+      ZOrder		      11
+      SrcBlock		      "Constant10"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      11
+    }
+    Line {
+      ZOrder		      12
+      SrcBlock		      "Constant13"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      14
+    }
+    Line {
+      ZOrder		      13
+      SrcBlock		      "Constant4"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      4
+    }
+    Line {
+      ZOrder		      14
+      SrcBlock		      "Constant12"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      13
+    }
+    Line {
+      ZOrder		      15
+      SrcBlock		      "Constant14"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      15
+    }
+    Line {
+      ZOrder		      16
+      SrcBlock		      "Constant15"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      16
+    }
+    Line {
+      ZOrder		      17
+      SrcBlock		      "Constant7"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      8
+    }
+    Line {
+      ZOrder		      18
+      SrcBlock		      "Constant8"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      9
+    }
+    Line {
+      ZOrder		      19
+      SrcBlock		      "Constant3"
+      SrcPort		      1
+      DstBlock		      "Bus\nCreator"
+      DstPort		      3
+    }
   }
 }

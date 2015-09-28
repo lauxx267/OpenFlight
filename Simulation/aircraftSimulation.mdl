@@ -7,8 +7,17 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.0"
-    NumModelReferences	    0
+    ComputedModelVersion    "1.13"
+    NumModelReferences	    3
+    ModelReference {
+      ModelRefBlockPath	      "aircraftSimulation/flightTestVehicle|flightTestVehicle"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "aircraftSimulation/groundControlStation|groundControlStation"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "aircraftSimulation/pilotInterface|pilotInterface"
+    }
     NumTestPointedSignals   0
   }
   ScopeRefreshTime	  0.035000
@@ -29,7 +38,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [168.0, 65.0, 1179.0, 701.0]
+      Location		      [1592.0, -8.0, 1696.0, 1066.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +47,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -53,7 +62,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1145.0, 565.0]
+	Extents			[1646.0, 892.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -65,9 +74,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 25 13:43:12 2015"
-  RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
+  LastModifiedDate	  "Mon Sep 28 11:05:24 2015"
+  RTWModifiedTimeStamp	  365339102
+  ModelVersionFormat	  "1.%<AutoIncrement:13>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -111,7 +120,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "aircraftSimulation"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -185,7 +194,7 @@ Model {
 	  StartTime		  "0.0"
 	  StopTime		  "10.0"
 	  AbsTol		  "auto"
-	  FixedStep		  "auto"
+	  FixedStep		  "sampleTime"
 	  InitialStep		  "auto"
 	  MaxNumMinSteps	  "-1"
 	  MaxOrder		  5
@@ -201,8 +210,8 @@ Model {
 	  SolverMode		  "Auto"
 	  EnableConcurrentExecution off
 	  ConcurrentTasks	  off
-	  Solver		  "ode45"
-	  SolverName		  "ode45"
+	  Solver		  "ode3"
+	  SolverName		  "ode3"
 	  SolverJacobianMethodControl "auto"
 	  ShapePreserveControl	  "DisableAll"
 	  ZeroCrossControl	  "UseLocalSettings"
@@ -718,7 +727,7 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 260, 130, 1340, 770 ] 
+      ConfigPrmDlgPosition     [ 252, 100, 1348, 778 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -788,10 +797,36 @@ Model {
     ToolTip		    "on"
   }
   BlockParameterDefaults {
+    Block {
+      BlockType		      Delay
+      DelayLengthSource	      "Dialog"
+      DelayLength	      "2"
+      DelayLengthUpperLimit   "100"
+      InitialConditionSource  "Dialog"
+      InitialCondition	      "0.0"
+      ExternalReset	      "None"
+      PreventDirectFeedthrough off
+      DiagnosticForOutOfRangeDelayLength "None"
+      RemoveProtectionDelayLength off
+      InputProcessing	      "Elements as channels (sample based)"
+      UseCircularBuffer	      off
+      SampleTime	      "-1"
+      StateMustResolveToSignalObject off
+      CodeGenStateStorageClass "Auto"
+    }
+    Block {
+      BlockType		      ModelReference
+      SimulationMode	      "Accelerator"
+      CodeUnderTest	      "Model reference"
+      Variant		      off
+      GeneratePreprocessorConditionals off
+      ContentPreviewEnabled   off
+      CopyOfModelProtected    off
+    }
   }
   System {
     Name		    "aircraftSimulation"
-    Location		    [168, 65, 1347, 766]
+    Location		    [1592, -8, 3288, 1058]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -805,5 +840,284 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "8"
+    Block {
+      BlockType		      Delay
+      Name		      "Delay"
+      SID		      "4"
+      Ports		      [1, 1]
+      Position		      [878, 470, 912, 505]
+      ZOrder		      4
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      InputPortMap	      "u0"
+      DelayLength	      "1"
+    }
+    Block {
+      BlockType		      Delay
+      Name		      "Delay1"
+      SID		      "5"
+      Ports		      [1, 1]
+      Position		      [423, 470, 457, 505]
+      ZOrder		      5
+      BlockRotation	      270
+      ShowName		      off
+      InputPortMap	      "u0"
+      DelayLength	      "1"
+    }
+    Block {
+      BlockType		      Delay
+      Name		      "Delay2"
+      SID		      "6"
+      Ports		      [1, 1]
+      Position		      [878, 205, 912, 240]
+      ZOrder		      6
+      BlockRotation	      270
+      ShowName		      off
+      InputPortMap	      "u0"
+      DelayLength	      "1"
+    }
+    Block {
+      BlockType		      Delay
+      Name		      "Delay3"
+      SID		      "7"
+      Ports		      [1, 1]
+      Position		      [423, 205, 457, 240]
+      ZOrder		      7
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      InputPortMap	      "u0"
+      DelayLength	      "1"
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "flightTestVehicle"
+      SID		      "1"
+      Ports		      [2, 2]
+      Position		      [535, 268, 805, 432]
+      ZOrder		      1
+      BackgroundColor	      "cyan"
+      ModelNameDialog	      "flightTestVehicle.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"telemetryUplink_bus"
+	port1			"rcUplink_bus"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"telemetryDownlink_bus"
+	port1			"rcDownlink_bus"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      CopyOfModelName	      "flightTestVehicle.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		19
+	$ClassName		"Simulink.Mask"
+	Display			"image(imread('vireo.jpg'))"
+      }
+      Port {
+	PortNumber		1
+	Name			"telemetryDownlink_bus"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+      Port {
+	PortNumber		2
+	Name			"rcDownlink_bus"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "groundControlStation"
+      SID		      "2"
+      Ports		      [1, 1]
+      Position		      [535, 75, 800, 215]
+      ZOrder		      2
+      BlockMirror	      on
+      BackgroundColor	      "cyan"
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "groundControlStation.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"telemetryDownlink_bus"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"telemetryUplink_bus"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+      }
+      CopyOfModelName	      "groundControlStation.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+      }
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		20
+	$ClassName		"Simulink.Mask"
+	Display			"image(imread('groundControlStation.jpg'))"
+      }
+      Port {
+	PortNumber		1
+	Name			"telemetryUplink_bus"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "pilotInterface"
+      SID		      "3"
+      Ports		      [1, 1]
+      Position		      [580, 510, 755, 630]
+      ZOrder		      3
+      BlockMirror	      on
+      BackgroundColor	      "cyan"
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "pilotInterface.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"rcDownlink_bus"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"rcUplink_bus"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+      }
+      CopyOfModelName	      "pilotInterface.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+      }
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		21
+	$ClassName		"Simulink.Mask"
+	Display			"image(imread('pilotInterface.png'))"
+	IconOpaque		"off"
+      }
+      Port {
+	PortNumber		1
+	Name			"rcUplink_bus"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Line {
+      Name		      "rcDownlink_bus"
+      ZOrder		      1
+      Labels		      [2, 1]
+      SrcBlock		      "flightTestVehicle"
+      SrcPort		      2
+      Points		      [85, 0]
+      DstBlock		      "Delay"
+      DstPort		      1
+    }
+    Line {
+      Name		      "rcUplink_bus"
+      ZOrder		      2
+      Labels		      [1, 1]
+      SrcBlock		      "pilotInterface"
+      SrcPort		      1
+      Points		      [-135, 0]
+      DstBlock		      "Delay1"
+      DstPort		      1
+    }
+    Line {
+      Name		      "telemetryUplink_bus"
+      ZOrder		      3
+      Labels		      [2, 1]
+      SrcBlock		      "groundControlStation"
+      SrcPort		      1
+      Points		      [-90, 0]
+      DstBlock		      "Delay3"
+      DstPort		      1
+    }
+    Line {
+      Name		      "telemetryDownlink_bus"
+      ZOrder		      4
+      Labels		      [2, 1]
+      SrcBlock		      "flightTestVehicle"
+      SrcPort		      1
+      Points		      [85, 0]
+      DstBlock		      "Delay2"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      5
+      SrcBlock		      "Delay"
+      SrcPort		      1
+      Points		      [0, 60]
+      DstBlock		      "pilotInterface"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      6
+      SrcBlock		      "Delay1"
+      SrcPort		      1
+      Points		      [0, -75]
+      DstBlock		      "flightTestVehicle"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      7
+      SrcBlock		      "Delay2"
+      SrcPort		      1
+      Points		      [0, -55]
+      DstBlock		      "groundControlStation"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      8
+      SrcBlock		      "Delay3"
+      SrcPort		      1
+      Points		      [0, 65]
+      DstBlock		      "flightTestVehicle"
+      DstPort		      1
+    }
   }
 }

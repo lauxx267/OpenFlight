@@ -1,23 +1,62 @@
 Model {
-  Name			  "vehicleResponse"
+  Name			  "flightControlSystem"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    1
+    NumRootInports	    3
     Inport {
-      Name		      "In1"
+      Name		      "telemetryUplink_bus"
       BusObject		      ""
     }
-    NumRootOutports	    1
+    Inport {
+      Name		      "rcUplink_bus"
+      BusObject		      ""
+    }
+    Inport {
+      Name		      "sensor_bus"
+      BusObject		      ""
+    }
+    NumRootOutports	    3
     Outport {
-      Name		      "Out1"
+      Name		      "telemetryDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "rcDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "actuatorCmd_bus"
       BusObject		      ""
       BusOutputAsStruct	      "off"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1"
-    NumModelReferences	    0
+    ComputedModelVersion    "1.7"
+    NumModelReferences	    7
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/airDataCANnode|airDataCANnode"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/flightManagementUnit|flightManagementUnit"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/motorDataCANnode|motorDataCANnode"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/rcReceiver|rcReceiver"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/servoCANnode|servoCANnode"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/telemetryRadio|telemetryRadio"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightControlSystem/vehicleManagementSystem|vehicleManagementSystem"
+    }
     NumTestPointedSignals   0
   }
   ScopeRefreshTime	  0.035000
@@ -38,7 +77,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1693.0, 260.0, 1179.0, 701.0]
+      Location		      [1592.0, -8.0, 1696.0, 1066.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -62,7 +101,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1129.0, 527.0]
+	Extents			[1646.0, 892.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -74,9 +113,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 12:53:54 2015"
-  RTWModifiedTimeStamp	  365345632
-  ModelVersionFormat	  "1.%<AutoIncrement:1>"
+  LastModifiedDate	  "Mon Sep 28 15:01:35 2015"
+  RTWModifiedTimeStamp	  365348311
+  ModelVersionFormat	  "1.%<AutoIncrement:7>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -816,6 +855,15 @@ Model {
       Interpolate	      on
     }
     Block {
+      BlockType		      ModelReference
+      SimulationMode	      "Accelerator"
+      CodeUnderTest	      "Model reference"
+      Variant		      off
+      GeneratePreprocessorConditionals off
+      ContentPreviewEnabled   off
+      CopyOfModelProtected    off
+    }
+    Block {
       BlockType		      Outport
       Port		      "1"
       OutMin		      "[]"
@@ -834,8 +882,8 @@ Model {
     }
   }
   System {
-    Name		    "vehicleResponse"
-    Location		    [1693, 260, 2872, 961]
+    Name		    "flightControlSystem"
+    Location		    [1592, -8, 3288, 1058]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -849,22 +897,321 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2"
+    SIDHighWatermark	    "35"
     Block {
       BlockType		      Inport
-      Name		      "In1"
+      Name		      "telemetryUplink_bus"
       SID		      "1"
-      Position		      [95, 118, 125, 132]
+      Position		      [115, 63, 145, 77]
       ZOrder		      1
+      BackgroundColor	      "orange"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Inport
+      Name		      "rcUplink_bus"
+      SID		      "3"
+      Position		      [115, 228, 145, 242]
+      ZOrder		      3
+      BackgroundColor	      "orange"
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Inport
+      Name		      "sensor_bus"
+      SID		      "6"
+      Position		      [115, 453, 145, 467]
+      ZOrder		      6
+      BackgroundColor	      "orange"
+      Port		      "3"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "airDataCANnode"
+      SID		      "32"
+      Ports		      []
+      Position		      [730, 461, 930, 554]
+      ZOrder		      17
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "airDataCANnode.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.0"
+      CopyOfModelName	      "airDataCANnode.mdl"
+      DefaultDataLogging      on
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "flightManagementUnit"
+      SID		      "30"
+      Ports		      [3, 1]
+      Position		      [395, 360, 615, 520]
+      ZOrder		      15
+      ModelNameDialog	      "flightManagementUnit.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.3"
+      List {
+	ListType		InputPortNames
+	port0			"sBus"
+	port1			"ethernetInput"
+	port2			"canInput"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"canOutput"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+	port2			"off"
+      }
+      CopyOfModelName	      "flightManagementUnit.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+	port2			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "motorDataCANnode"
+      SID		      "34"
+      Ports		      []
+      Position		      [1020, 463, 1167, 553]
+      ZOrder		      19
+      ModelNameDialog	      "motorDataCANnode.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.0"
+      CopyOfModelName	      "motorDataCANnode.mdl"
+      DefaultDataLogging      on
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "rcReceiver"
+      SID		      "28"
+      Ports		      [2, 2]
+      Position		      [395, 214, 615, 301]
+      ZOrder		      13
+      ModelNameDialog	      "rcReceiver.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.2"
+      List {
+	ListType		InputPortNames
+	port0			"rcUplink_bus"
+	port1			"serialData"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"rcDownlink_bus"
+	port1			"sbus"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      CopyOfModelName	      "rcReceiver.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "servoCANnode"
+      SID		      "31"
+      Ports		      [2, 2]
+      Position		      [405, 586, 605, 679]
+      ZOrder		      16
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "servoCANnode.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"canInput"
+	port1			"analogInput"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"canOutput"
+	port1			"pwmOutput"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      CopyOfModelName	      "servoCANnode.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "telemetryRadio"
+      SID		      "27"
+      Ports		      [2, 2]
+      Position		      [380, 41, 625, 159]
+      ZOrder		      12
+      ModelNameDialog	      "telemetryRadio.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"telemetryUplink_bus"
+	port1			"ethernetInput"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"telemetryDownlink_bus"
+	port1			"ethernetOutput"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+      }
+      CopyOfModelName	      "telemetryRadio.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "vehicleManagementSystem"
+      SID		      "35"
+      Ports		      []
+      Position		      [865, 633, 1072, 728]
+      ZOrder		      20
+      ModelNameDialog	      "vehicleManagementSystem.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.0"
+      CopyOfModelName	      "vehicleManagementSystem.mdl"
+      DefaultDataLogging      on
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "telemetryDownlink_bus"
+      SID		      "4"
+      Position		      [875, 63, 905, 77]
+      ZOrder		      4
+      BackgroundColor	      "lightBlue"
       IconDisplay	      "Port number"
     }
     Block {
       BlockType		      Outport
-      Name		      "Out1"
-      SID		      "2"
-      Position		      [635, 158, 665, 172]
-      ZOrder		      2
+      Name		      "rcDownlink_bus"
+      SID		      "5"
+      Position		      [875, 228, 905, 242]
+      ZOrder		      5
+      BackgroundColor	      "lightBlue"
+      Port		      "2"
       IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "actuatorCmd_bus"
+      SID		      "7"
+      Position		      [290, 648, 320, 662]
+      ZOrder		      7
+      BlockMirror	      on
+      BackgroundColor	      "lightBlue"
+      NamePlacement	      "alternate"
+      Port		      "3"
+      IconDisplay	      "Port number"
+    }
+    Line {
+      ZOrder		      1
+      SrcBlock		      "telemetryUplink_bus"
+      SrcPort		      1
+      DstBlock		      "telemetryRadio"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      2
+      SrcBlock		      "telemetryRadio"
+      SrcPort		      1
+      DstBlock		      "telemetryDownlink_bus"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      3
+      SrcBlock		      "rcUplink_bus"
+      SrcPort		      1
+      DstBlock		      "rcReceiver"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      4
+      SrcBlock		      "rcReceiver"
+      SrcPort		      1
+      DstBlock		      "rcDownlink_bus"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      7
+      SrcBlock		      "rcReceiver"
+      SrcPort		      2
+      Points		      [9, 0; 0, 55; -249, 0]
+      DstBlock		      "flightManagementUnit"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      8
+      SrcBlock		      "flightManagementUnit"
+      SrcPort		      1
+      Points		      [53, 0; 0, 170]
+      DstBlock		      "servoCANnode"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      9
+      SrcBlock		      "servoCANnode"
+      SrcPort		      1
+      Points		      [-35, 0; 0, -115]
+      DstBlock		      "flightManagementUnit"
+      DstPort		      3
+    }
+    Line {
+      ZOrder		      10
+      SrcBlock		      "servoCANnode"
+      SrcPort		      2
+      DstBlock		      "actuatorCmd_bus"
+      DstPort		      1
     }
   }
 }

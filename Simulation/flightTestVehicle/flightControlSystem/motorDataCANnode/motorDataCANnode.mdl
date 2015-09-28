@@ -1,22 +1,13 @@
 Model {
-  Name			  "vehicleResponse"
+  Name			  "aircraftSimulation"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    1
-    Inport {
-      Name		      "In1"
-      BusObject		      ""
-    }
-    NumRootOutports	    1
-    Outport {
-      Name		      "Out1"
-      BusObject		      ""
-      BusOutputAsStruct	      "off"
-    }
+    NumRootInports	    0
+    NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1"
+    ComputedModelVersion    "1.0"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1693.0, 260.0, 1179.0, 701.0]
+      Location		      [168.0, 65.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -47,7 +38,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[9]
+	Filter			[8]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -62,7 +53,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1129.0, 527.0]
+	Extents			[1145.0, 565.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -74,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 12:53:54 2015"
-  RTWModifiedTimeStamp	  365345632
-  ModelVersionFormat	  "1.%<AutoIncrement:1>"
+  LastModifiedDate	  "Fri Sep 25 13:43:12 2015"
+  RTWModifiedTimeStamp	  0
+  ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -120,7 +111,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "aircraftSimulation"
-    overrideMode_	    [0.0]
+    overrideMode_	    [0U]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -797,45 +788,10 @@ Model {
     ToolTip		    "on"
   }
   BlockParameterDefaults {
-    Block {
-      BlockType		      Inport
-      Port		      "1"
-      OutputFunctionCall      off
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeStr	      "Inherit: auto"
-      LockScale		      off
-      BusOutputAsStruct	      off
-      PortDimensions	      "-1"
-      VarSizeSig	      "Inherit"
-      SampleTime	      "-1"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
-      LatchByDelayingOutsideSignal off
-      LatchInputForFeedbackSignals off
-      Interpolate	      on
-    }
-    Block {
-      BlockType		      Outport
-      Port		      "1"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeStr	      "Inherit: auto"
-      LockScale		      off
-      BusOutputAsStruct	      off
-      PortDimensions	      "-1"
-      VarSizeSig	      "Inherit"
-      SampleTime	      "-1"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
-      SourceOfInitialOutputValue "Dialog"
-      OutputWhenDisabled      "held"
-      InitialOutput	      "[]"
-    }
   }
   System {
-    Name		    "vehicleResponse"
-    Location		    [1693, 260, 2872, 961]
+    Name		    "aircraftSimulation"
+    Location		    [168, 65, 1347, 766]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -849,22 +805,5 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2"
-    Block {
-      BlockType		      Inport
-      Name		      "In1"
-      SID		      "1"
-      Position		      [95, 118, 125, 132]
-      ZOrder		      1
-      IconDisplay	      "Port number"
-    }
-    Block {
-      BlockType		      Outport
-      Name		      "Out1"
-      SID		      "2"
-      Position		      [635, 158, 665, 172]
-      ZOrder		      2
-      IconDisplay	      "Port number"
-    }
   }
 }

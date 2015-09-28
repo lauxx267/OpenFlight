@@ -1,17 +1,26 @@
 Model {
-  Name			  "vehicleResponse"
+  Name			  "servoCANnode"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    1
+    NumRootInports	    2
     Inport {
-      Name		      "In1"
+      Name		      "canInput"
       BusObject		      ""
     }
-    NumRootOutports	    1
+    Inport {
+      Name		      "analogInput"
+      BusObject		      ""
+    }
+    NumRootOutports	    2
     Outport {
-      Name		      "Out1"
+      Name		      "canOutput"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "pwmOutput"
       BusObject		      ""
       BusOutputAsStruct	      "off"
     }
@@ -38,7 +47,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1693.0, 260.0, 1179.0, 701.0]
+      Location		      [1632.0, 211.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -74,8 +83,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 12:53:54 2015"
-  RTWModifiedTimeStamp	  365345632
+  LastModifiedDate	  "Mon Sep 28 13:35:13 2015"
+  RTWModifiedTimeStamp	  365348112
   ModelVersionFormat	  "1.%<AutoIncrement:1>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
@@ -834,8 +843,8 @@ Model {
     }
   }
   System {
-    Name		    "vehicleResponse"
-    Location		    [1693, 260, 2872, 961]
+    Name		    "servoCANnode"
+    Location		    [1632, 211, 2811, 912]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -849,21 +858,39 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2"
+    SIDHighWatermark	    "4"
     Block {
       BlockType		      Inport
-      Name		      "In1"
+      Name		      "canInput"
       SID		      "1"
-      Position		      [95, 118, 125, 132]
+      Position		      [65, 48, 95, 62]
       ZOrder		      1
       IconDisplay	      "Port number"
     }
     Block {
-      BlockType		      Outport
-      Name		      "Out1"
+      BlockType		      Inport
+      Name		      "analogInput"
       SID		      "2"
-      Position		      [635, 158, 665, 172]
+      Position		      [65, 98, 95, 112]
       ZOrder		      2
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "canOutput"
+      SID		      "3"
+      Position		      [385, 53, 415, 67]
+      ZOrder		      3
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "pwmOutput"
+      SID		      "4"
+      Position		      [385, 98, 415, 112]
+      ZOrder		      4
+      Port		      "2"
       IconDisplay	      "Port number"
     }
   }

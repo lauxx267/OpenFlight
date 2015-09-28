@@ -1,22 +1,31 @@
 Model {
-  Name			  "vehicleResponse"
+  Name			  "rcReceiver"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    1
+    NumRootInports	    2
     Inport {
-      Name		      "In1"
+      Name		      "rcUplink_bus"
       BusObject		      ""
     }
-    NumRootOutports	    1
+    Inport {
+      Name		      "serialData"
+      BusObject		      ""
+    }
+    NumRootOutports	    2
     Outport {
-      Name		      "Out1"
+      Name		      "rcDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "sbus"
       BusObject		      ""
       BusOutputAsStruct	      "off"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1"
+    ComputedModelVersion    "1.2"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,7 +47,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1693.0, 260.0, 1179.0, 701.0]
+      Location		      [1760.0, 192.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -74,9 +83,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 12:53:54 2015"
-  RTWModifiedTimeStamp	  365345632
-  ModelVersionFormat	  "1.%<AutoIncrement:1>"
+  LastModifiedDate	  "Mon Sep 28 13:29:08 2015"
+  RTWModifiedTimeStamp	  365347746
+  ModelVersionFormat	  "1.%<AutoIncrement:2>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -834,8 +843,8 @@ Model {
     }
   }
   System {
-    Name		    "vehicleResponse"
-    Location		    [1693, 260, 2872, 961]
+    Name		    "rcReceiver"
+    Location		    [1760, 192, 2939, 893]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -849,21 +858,39 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2"
+    SIDHighWatermark	    "4"
     Block {
       BlockType		      Inport
-      Name		      "In1"
+      Name		      "rcUplink_bus"
       SID		      "1"
-      Position		      [95, 118, 125, 132]
+      Position		      [55, 48, 85, 62]
       ZOrder		      1
       IconDisplay	      "Port number"
     }
     Block {
-      BlockType		      Outport
-      Name		      "Out1"
+      BlockType		      Inport
+      Name		      "serialData"
       SID		      "2"
-      Position		      [635, 158, 665, 172]
+      Position		      [55, 128, 85, 142]
       ZOrder		      2
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "rcDownlink_bus"
+      SID		      "4"
+      Position		      [345, 128, 375, 142]
+      ZOrder		      4
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "sbus"
+      SID		      "3"
+      Position		      [345, 48, 375, 62]
+      ZOrder		      3
+      Port		      "2"
       IconDisplay	      "Port number"
     }
   }

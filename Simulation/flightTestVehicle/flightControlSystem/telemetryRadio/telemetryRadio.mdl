@@ -1,17 +1,26 @@
 Model {
-  Name			  "vehicleResponse"
+  Name			  "telemetryRadio"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    1
+    NumRootInports	    2
     Inport {
-      Name		      "In1"
+      Name		      "telemetryUplink_bus"
       BusObject		      ""
     }
-    NumRootOutports	    1
+    Inport {
+      Name		      "ethernetInput"
+      BusObject		      ""
+    }
+    NumRootOutports	    2
     Outport {
-      Name		      "Out1"
+      Name		      "telemetryDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "ethernetOutput"
       BusObject		      ""
       BusOutputAsStruct	      "off"
     }
@@ -38,7 +47,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1693.0, 260.0, 1179.0, 701.0]
+      Location		      [1963.0, 196.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -74,8 +83,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 12:53:54 2015"
-  RTWModifiedTimeStamp	  365345632
+  LastModifiedDate	  "Mon Sep 28 13:26:40 2015"
+  RTWModifiedTimeStamp	  365347598
   ModelVersionFormat	  "1.%<AutoIncrement:1>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
@@ -834,8 +843,8 @@ Model {
     }
   }
   System {
-    Name		    "vehicleResponse"
-    Location		    [1693, 260, 2872, 961]
+    Name		    "telemetryRadio"
+    Location		    [1963, 196, 3142, 897]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -849,21 +858,39 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2"
+    SIDHighWatermark	    "4"
     Block {
       BlockType		      Inport
-      Name		      "In1"
+      Name		      "telemetryUplink_bus"
       SID		      "1"
-      Position		      [95, 118, 125, 132]
+      Position		      [100, 43, 130, 57]
       ZOrder		      1
       IconDisplay	      "Port number"
     }
     Block {
-      BlockType		      Outport
-      Name		      "Out1"
+      BlockType		      Inport
+      Name		      "ethernetInput"
       SID		      "2"
-      Position		      [635, 158, 665, 172]
+      Position		      [100, 118, 130, 132]
       ZOrder		      2
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "telemetryDownlink_bus"
+      SID		      "3"
+      Position		      [405, 43, 435, 57]
+      ZOrder		      3
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "ethernetOutput"
+      SID		      "4"
+      Position		      [405, 118, 435, 132]
+      ZOrder		      4
+      Port		      "2"
       IconDisplay	      "Port number"
     }
   }

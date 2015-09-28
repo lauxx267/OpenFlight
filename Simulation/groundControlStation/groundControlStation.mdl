@@ -1,13 +1,22 @@
 Model {
-  Name			  "aircraftSimulation"
+  Name			  "groundControlStation"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    0
-    NumRootOutports	    0
+    NumRootInports	    1
+    Inport {
+      Name		      "telemetryDownlink_bus"
+      BusObject		      ""
+    }
+    NumRootOutports	    1
+    Outport {
+      Name		      "telemetryUplink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.0"
+    ComputedModelVersion    "1.3"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +38,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [168.0, 65.0, 1179.0, 701.0]
+      Location		      [1845.0, 113.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +47,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -53,7 +62,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1145.0, 565.0]
+	Extents			[1129.0, 527.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -65,9 +74,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 25 13:43:12 2015"
-  RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
+  LastModifiedDate	  "Mon Sep 28 12:50:51 2015"
+  RTWModifiedTimeStamp	  365345447
+  ModelVersionFormat	  "1.%<AutoIncrement:3>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -111,7 +120,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "aircraftSimulation"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -788,10 +797,51 @@ Model {
     ToolTip		    "on"
   }
   BlockParameterDefaults {
+    Block {
+      BlockType		      Ground
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Terminator
+    }
   }
   System {
-    Name		    "aircraftSimulation"
-    Location		    [168, 65, 1347, 766]
+    Name		    "groundControlStation"
+    Location		    [1845, 113, 3024, 814]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -805,5 +855,56 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "4"
+    Block {
+      BlockType		      Inport
+      Name		      "telemetryDownlink_bus"
+      SID		      "1"
+      Position		      [125, 118, 155, 132]
+      ZOrder		      1
+      BackgroundColor	      "orange"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Ground
+      Name		      "Ground"
+      SID		      "4"
+      Position		      [450, 115, 470, 135]
+      ZOrder		      4
+      ForegroundColor	      "gray"
+      ShowName		      off
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator"
+      SID		      "3"
+      Position		      [250, 115, 270, 135]
+      ZOrder		      3
+      ForegroundColor	      "gray"
+      ShowName		      off
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "telemetryUplink_bus"
+      SID		      "2"
+      Position		      [645, 118, 675, 132]
+      ZOrder		      2
+      BackgroundColor	      "lightBlue"
+      IconDisplay	      "Port number"
+    }
+    Line {
+      ZOrder		      2
+      SrcBlock		      "telemetryDownlink_bus"
+      SrcPort		      1
+      DstBlock		      "Terminator"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      3
+      SrcBlock		      "Ground"
+      SrcPort		      1
+      DstBlock		      "telemetryUplink_bus"
+      DstPort		      1
+    }
   }
 }

@@ -1,5 +1,5 @@
 Model {
-  Name			  "vehicleResponse"
+  Name			  "sensors"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -38,7 +38,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1693.0, 260.0, 1179.0, 701.0]
+      Location		      [780.0, 108.0, 1179.0, 701.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -74,8 +74,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 28 12:53:54 2015"
-  RTWModifiedTimeStamp	  365345632
+  LastModifiedDate	  "Mon Sep 28 12:53:19 2015"
+  RTWModifiedTimeStamp	  365345597
   ModelVersionFormat	  "1.%<AutoIncrement:1>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
@@ -834,8 +834,8 @@ Model {
     }
   }
   System {
-    Name		    "vehicleResponse"
-    Location		    [1693, 260, 2872, 961]
+    Name		    "sensors"
+    Location		    [780, 108, 1959, 809]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -853,17 +853,17 @@ Model {
     Block {
       BlockType		      Inport
       Name		      "In1"
-      SID		      "1"
-      Position		      [95, 118, 125, 132]
-      ZOrder		      1
+      SID		      "2"
+      Position		      [220, 188, 250, 202]
+      ZOrder		      2
       IconDisplay	      "Port number"
     }
     Block {
       BlockType		      Outport
       Name		      "Out1"
-      SID		      "2"
-      Position		      [635, 158, 665, 172]
-      ZOrder		      2
+      SID		      "1"
+      Position		      [520, 158, 550, 172]
+      ZOrder		      1
       IconDisplay	      "Port number"
     }
   }

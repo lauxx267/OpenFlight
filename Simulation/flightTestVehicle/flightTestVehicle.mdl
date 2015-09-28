@@ -1,14 +1,44 @@
 Model {
-  Name			  "aircraftSimulation"
+  Name			  "flightTestVehicle"
   Version		  8.4
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
-    NumRootInports	    0
-    NumRootOutports	    0
+    NumRootInports	    2
+    Inport {
+      Name		      "telemetryUplink_bus"
+      BusObject		      ""
+    }
+    Inport {
+      Name		      "rcUplink_bus"
+      BusObject		      ""
+    }
+    NumRootOutports	    2
+    Outport {
+      Name		      "telemetryDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
+    Outport {
+      Name		      "rcDownlink_bus"
+      BusObject		      ""
+      BusOutputAsStruct	      "off"
+    }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.0"
-    NumModelReferences	    0
+    ComputedModelVersion    "1.7"
+    NumModelReferences	    4
+    ModelReference {
+      ModelRefBlockPath	      "flightTestVehicle/Model2|vehicleResponse"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightTestVehicle/Model3|sensors"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightTestVehicle/effectors|actuators"
+    }
+    ModelReference {
+      ModelRefBlockPath	      "flightTestVehicle/flightControlSystem|flightControlSystem"
+    }
     NumTestPointedSignals   0
   }
   ScopeRefreshTime	  0.035000
@@ -29,7 +59,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [168.0, 65.0, 1179.0, 701.0]
+      Location		      [1592.0, 0.0, 1696.0, 1062.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -38,7 +68,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -53,7 +83,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1145.0, 565.0]
+	Extents			[1646.0, 888.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -65,9 +95,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "brtaylor"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 25 13:43:12 2015"
-  RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
+  LastModifiedDate	  "Mon Sep 28 15:01:26 2015"
+  RTWModifiedTimeStamp	  365347448
+  ModelVersionFormat	  "1.%<AutoIncrement:7>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -111,7 +141,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "aircraftSimulation"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -788,10 +818,54 @@ Model {
     ToolTip		    "on"
   }
   BlockParameterDefaults {
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      ModelReference
+      SimulationMode	      "Accelerator"
+      CodeUnderTest	      "Model reference"
+      Variant		      off
+      GeneratePreprocessorConditionals off
+      ContentPreviewEnabled   off
+      CopyOfModelProtected    off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
   }
   System {
-    Name		    "aircraftSimulation"
-    Location		    [168, 65, 1347, 766]
+    Name		    "flightTestVehicle"
+    Location		    [1592, 0, 3288, 1062]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -805,5 +879,264 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "9"
+    Block {
+      BlockType		      Inport
+      Name		      "telemetryUplink_bus"
+      SID		      "1"
+      Position		      [115, 83, 145, 97]
+      ZOrder		      1
+      BackgroundColor	      "orange"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Inport
+      Name		      "rcUplink_bus"
+      SID		      "3"
+      Position		      [115, 133, 145, 147]
+      ZOrder		      3
+      BackgroundColor	      "orange"
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "Model2"
+      SID		      "8"
+      Ports		      [1, 1]
+      Position		      [355, 422, 495, 468]
+      ZOrder		      8
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "vehicleResponse.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"In1"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"Out1"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+      }
+      CopyOfModelName	      "vehicleResponse.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "Model3"
+      SID		      "9"
+      Ports		      [1, 1]
+      Position		      [177, 255, 263, 365]
+      ZOrder		      9
+      BlockRotation	      270
+      ModelNameDialog	      "sensors.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"In1"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"Out1"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+      }
+      CopyOfModelName	      "sensors.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "effectors"
+      SID		      "7"
+      Ports		      [1, 1]
+      Position		      [619, 255, 711, 365]
+      ZOrder		      7
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ModelNameDialog	      "actuators.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.1"
+      List {
+	ListType		InputPortNames
+	port0			"In1"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"Out1"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+      }
+      CopyOfModelName	      "actuators.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+      }
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		19
+	$ClassName		"Simulink.Mask"
+	Display			"image(imread('actuator.jpg'))"
+      }
+    }
+    Block {
+      BlockType		      ModelReference
+      Name		      "flightControlSystem"
+      SID		      "6"
+      Ports		      [3, 3]
+      Position		      [305, 65, 540, 215]
+      ZOrder		      6
+      ModelNameDialog	      "flightControlSystem.mdl"
+      SimulationMode	      "Normal"
+      ModelReferenceVersion   "1.7"
+      List {
+	ListType		InputPortNames
+	port0			"telemetryUplink_bus"
+	port1			"rcUplink_bus"
+	port2			"sensor_bus"
+      }
+      List {
+	ListType		OutputPortNames
+	port0			"telemetryDownlink_bus"
+	port1			"rcDownlink_bus"
+	port2			"actuatorCmd_bus"
+      }
+      List {
+	ListType		OutputPortOutputBusAsStructs
+	port0			"off"
+	port1			"off"
+	port2			"off"
+      }
+      List {
+	ListType		InputPortLatchByCopyingInsideSignal
+	port0			"off"
+	port1			"off"
+	port2			"off"
+      }
+      CopyOfModelName	      "flightControlSystem.mdl"
+      DefaultDataLogging      on
+      List {
+	ListType		InputPortLatchByDelayingOutsideSignal
+	port0			"off"
+	port1			"off"
+	port2			"off"
+      }
+      Object {
+	$PropName		"MaskObject"
+	$ObjectID		20
+	$ClassName		"Simulink.Mask"
+	Display			"image(imread('flightControlSystem.jpg'))"
+      }
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "telemetryDownlink_bus"
+      SID		      "4"
+      Position		      [650, 83, 680, 97]
+      ZOrder		      4
+      BackgroundColor	      "lightBlue"
+      IconDisplay	      "Port number"
+    }
+    Block {
+      BlockType		      Outport
+      Name		      "rcDownlink_bus"
+      SID		      "5"
+      Position		      [650, 133, 680, 147]
+      ZOrder		      5
+      BackgroundColor	      "lightBlue"
+      Port		      "2"
+      IconDisplay	      "Port number"
+    }
+    Line {
+      ZOrder		      1
+      SrcBlock		      "telemetryUplink_bus"
+      SrcPort		      1
+      DstBlock		      "flightControlSystem"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      2
+      SrcBlock		      "rcUplink_bus"
+      SrcPort		      1
+      DstBlock		      "flightControlSystem"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      3
+      SrcBlock		      "flightControlSystem"
+      SrcPort		      1
+      DstBlock		      "telemetryDownlink_bus"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      4
+      SrcBlock		      "flightControlSystem"
+      SrcPort		      2
+      DstBlock		      "rcDownlink_bus"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      5
+      SrcBlock		      "flightControlSystem"
+      SrcPort		      3
+      Points		      [120, 0]
+      DstBlock		      "effectors"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      9
+      SrcBlock		      "effectors"
+      SrcPort		      1
+      Points		      [0, 75]
+      DstBlock		      "Model2"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      7
+      SrcBlock		      "Model3"
+      SrcPort		      1
+      Points		      [0, -60]
+      DstBlock		      "flightControlSystem"
+      DstPort		      3
+    }
+    Line {
+      ZOrder		      8
+      SrcBlock		      "Model2"
+      SrcPort		      1
+      Points		      [-130, 0]
+      DstBlock		      "Model3"
+      DstPort		      1
+    }
   }
 }
