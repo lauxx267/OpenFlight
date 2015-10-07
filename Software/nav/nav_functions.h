@@ -3,12 +3,12 @@
  *
  *	\details
  *     Module:          navfunc.h
- *     Modified:        Gokhan Inalhan (remaining) 
+ *     Modified:        Gokhan Inalhan (remaining)
  *                      Demoz Gebre (first three functions)
  *                      Adhika Lie
  *                      Jung Soon Jang
- *     Description:     navfunc.h contains all the variable, 
- *                      constants and function prototypes that are 
+ *     Description:     navfunc.h contains all the variable,
+ *                      constants and function prototypes that are
  *                      used with the inertial navigation software.
  *	\ingroup nav_fcns
  *
@@ -31,12 +31,12 @@
 #define ECC2		 0.0066943799901 /* major eccentricity squared */
 #define FLATTENING   0.0033528106650 /* flattening of the ellipsoid */
 #define GRAVITY_0    9.7803730       /* zeroth coefficient for gravity model */
-#define GRAVITY_1    0.0052891       /* first coefficient for the gravity model*/ 
+#define GRAVITY_1    0.0052891       /* first coefficient for the gravity model*/
 #define GRAVITY_2    0.0000059       /* second coefficient for the gravity model*/
-#define GRAVITY_NOM  9.81            /* nominal gravity */ 
+#define GRAVITY_NOM  9.81            /* nominal gravity */
 #define SCHULER2     1.533421593170545E-06 /* Sculer Frequency (rad/sec) Squared */
 //#define R2D          57.29577951308232     /* radians to degrees conversion factor */
-//#define D2R          0.01745329251994      /* degrees to radians conversion factor */  
+//#define D2R          0.01745329251994      /* degrees to radians conversion factor */
 #define FT2M         0.3048                /* feet to meters conversion factor */
 #define KTS2ms       0.5144                /* Knots to meters/sec conversion factor*/
 //#define PI           3.14159265358979      /* pi */
@@ -101,10 +101,10 @@ MATRIX EulerToDcm(MATRIX euler, double dipA, MATRIX dcm);
 /* Function    void EcefToEnu(MATRIX outputVector, MATRIX inputVector,
  *                              MATRIX position);
  *-------------------------------------------------------------
- * Converts the vector given in ECEF coordinates to a vector in 
+ * Converts the vector given in ECEF coordinates to a vector in
  * ENU (East, North, Up) coordinates centered at the location
  * given in position (in lattitude, longitude, altitude);
- */ 
+ */
 void EcefToEnu(MATRIX outputVector, MATRIX inputVector, MATRIX position);
 
 
@@ -117,14 +117,14 @@ void EcefToLatLonAlt(MATRIX vector);
 
 /* Function void LatLonAltToEcef(MATRIX vector, MATRIX position );
  *--------------------------------------------------------------
- * Converts a position vector given in lattitude, longitude and 
+ * Converts a position vector given in lattitude, longitude and
  * altitude to a vector in ECEF coordinates.
  */
 void LatLonAltToEcef(MATRIX vector, MATRIX position);
 
 /* Function void nCltrans(MATRIX n_C_l, double magdec)
  *--------------------------------------------------------------
- * Creates the transformation matrix from IMU level earth frame 
+ * Creates the transformation matrix from IMU level earth frame
  * to instantenous Navigation ENU frame
  */
 void nCltrans(MATRIX n_C_l, double magdec);
@@ -141,5 +141,5 @@ void eCntrans(MATRIX e_C_n, MATRIX LatLon);
  * Creates the transformation matrix from B(b:body) to ELF(l:earth level) frame
  * input: yaw-psi(rad) pitch-theta(rad) roll-phi(rad) inverse of 3-2-1 Euler transformation
  */
-void lCbtrans(MATRIX l_C_b, MATRIX YawPitchRoll); 
+void lCbtrans(MATRIX l_C_b, MATRIX YawPitchRoll);
 #endif

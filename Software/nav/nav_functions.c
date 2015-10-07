@@ -25,7 +25,7 @@
 /*     Include Pertinent Header Files */
 
 #include <math.h>
-#include "../utils/matrix.h"
+#include "matrix.h"
 #include "nav_functions.h"
 
 /*=================================================================*/
@@ -34,8 +34,8 @@ MATRIX eul2dcm(MATRIX euler, MATRIX dcm)
 	/* Function:     MATRIX eul2dcm(MATRIX euler, MATRIX dcm)
 	 * ----------------------------------------------------------------
 	 * This function creates the direction cosine matrix (DCM) that
-	 * transforms a vector from navigation frame to the body frame given 
-	 * a set of Euler Angle in the form of [phi theta psi] for a 3-2-1 
+	 * transforms a vector from navigation frame to the body frame given
+	 * a set of Euler Angle in the form of [phi theta psi] for a 3-2-1
 	 * rotation sequence
 	 */
   double cPHI,sPHI,cTHE,sTHE,cPSI,sPSI;
@@ -52,13 +52,13 @@ MATRIX eul2dcm(MATRIX euler, MATRIX dcm)
 }
 
 /*=================================================================*/
-MATRIX dcm2eul(MATRIX euler, MATRIX dcm) 
+MATRIX dcm2eul(MATRIX euler, MATRIX dcm)
 {
 	/*
 	* Function:     MATRIX dcm2eul(MATRIX euler, MATRIX dcm)
 	*-----------------------------------------------------------------
-	* Convert *any* DCM into its Euler Angle equivalent. For navigatin, 
-	* use DCM from NED to Body-fixed as input to get the conevntional 
+	* Convert *any* DCM into its Euler Angle equivalent. For navigatin,
+	* use DCM from NED to Body-fixed as input to get the conevntional
 	* euler angles.
 	* The output argument 'euler' is a vector containing the
 	* the three euler angles in radians given in [phi; theta; psi] format.
@@ -68,7 +68,7 @@ MATRIX dcm2eul(MATRIX euler, MATRIX dcm)
 	euler[0][0] = atan2(dcm[1][2],dcm[2][2]);
 	euler[1][0] = -asin(dcm[0][2]);
 	euler[2][0] = atan2(dcm[0][1],dcm[0][0]);
-	
+
 	return euler;
 }
 
@@ -78,67 +78,67 @@ MATRIX create_R(MATRIX e, MATRIX R)
 	 * phi_dot, the_dot and psi_dot from given pqr (body rate).
 	 */
 	double ph, th, ps;
-	
+
 	ph = e[0][0]; th = e[1][0]; ps = e[2][0];
-	
+
 	R[0][0] = 1.0;
 	R[0][1] = sin(ph)*tan(th);
 	R[0][2] = cos(ph)*tan(th);
-	
+
 	R[1][0] = 0.0;
 	R[1][1] = cos(ph);
 	R[1][2] = -sin(ph);
-	
+
 	R[2][0] = 0.0;
 	R[2][1] = sin(ph)/cos(th);
 	R[2][2] = cos(ph)/cos(th);
-	
+
 	return R;
 }
 
-MATRIX llarate(MATRIX V, MATRIX lla, MATRIX lla_dot) 
+MATRIX llarate(MATRIX V, MATRIX lla, MATRIX lla_dot)
 {
 	/* This function calculates the rate of change of latitude, longitude,
 	 * and altitude.
 	 * Using WGS-84.
 	 */
 	double lat, h, Rew, Rns, denom;
-	
+
 	lat = lla[0][0]; h = lla[2][0];
-	
+
 	denom = (1.0 - (ECC2 * sin(lat) * sin(lat)));
 	denom = sqrt(denom*denom);
 
 	Rew = EARTH_RADIUS / sqrt(denom);
 	Rns = EARTH_RADIUS*(1-ECC2) / denom*sqrt(denom);
-	
+
 	lla_dot[0][0] = V[0][0]/(Rns + h);
 	lla_dot[1][0] = V[1][0]/((Rew + h)*cos(lat));
 	lla_dot[2][0] = -V[2][0];
-	
+
 	return lla_dot;
 }
 
-MATRIX navrate(MATRIX V, MATRIX lla, MATRIX nr) 
+MATRIX navrate(MATRIX V, MATRIX lla, MATRIX nr)
 {
-	/* This function calculates the angular velocity of the NED frame, 
+	/* This function calculates the angular velocity of the NED frame,
 	 * also known as the navigation rate.
 	 * Using WGS-84.
 	 */
 	double lat, h, Rew, Rns, denom;
-	
+
 	lat = lla[0][0]; h = lla[2][0];
-	
+
 	denom = (1.0 - (ECC2 * sin(lat) * sin(lat)));
 	denom = sqrt(denom*denom);
 
 	Rew = EARTH_RADIUS / sqrt(denom);
 	Rns = EARTH_RADIUS*(1-ECC2) / denom*sqrt(denom);
-	
+
 	nr[0][0] = V[1][0]/(Rew + h);
 	nr[1][0] = -V[0][0]/(Rns + h);
 	nr[2][0] = -V[1][0]*tan(lat)/(Rew + h);
-	
+
 	return nr;
 }
 
@@ -146,7 +146,7 @@ MATRIX ecef2lla(MATRIX ecef, MATRIX lla)
 {
 	/* This function calculates the Latitude, Longitude and Altitude of a
 	 * point located on earth given the ECEF Coordinate.
-	 * Reference: Jekeli, C.,"Inertial Navigation Systems With Geodetic 
+	 * Reference: Jekeli, C.,"Inertial Navigation Systems With Geodetic
 	         Applications", Walter de Gruyter, New York, 2001, pp. 24
 	*/
 	double x, y, z;
@@ -154,37 +154,37 @@ MATRIX ecef2lla(MATRIX ecef, MATRIX lla)
 
 	x = ecef[0][0]; y = ecef[1][0]; z = ecef[2][0];
 	lon = atan2(y,x);
-	
+
 	p = sqrt(x*x+y*y);
 
 	lat = atan2(z,p*(1-ECC2));
-	
+
 	err = 1.0;
 	while (fabs(err)>1e-14){
 		denom = (1.0 - (ECC2 * sin(lat) * sin(lat)));
 		denom = sqrt(denom*denom);
 
 		Rew = EARTH_RADIUS / sqrt(denom);
-		
+
 		alt = p/cos(lat) - Rew;
-		
+
 		err = atan2(z*(1+ECC2*Rew*sin(lat)/z),p) - lat;
 		lat = lat + err;
 	}
-	
+
 	lla[0][0] = lat;
 	lla[1][0] = lon;
 	lla[2][0] = alt;
-	
+
 	return lla;
 }
 
 MATRIX lla2ecef(MATRIX lla, MATRIX ecef)
-{  
+{
 	/* This function calculates the ECEF Coordinate given the Latitude,
 	 * Longitude and Altitude.
 	 */
-	
+
 	double Rew, alt, denom;
 	double sinlat, coslat, coslon, sinlon;
 
@@ -198,11 +198,11 @@ MATRIX lla2ecef(MATRIX lla, MATRIX ecef)
 	denom = sqrt(denom*denom);
 
 	Rew = EARTH_RADIUS / sqrt(denom);
-  
+
 	ecef[0][0] = (Rew + alt) * coslat * coslon;
 	ecef[1][0] = (Rew + alt) * coslat * sinlon;
 	ecef[2][0] = (Rew * (1.0 - ECC2) + alt) * sinlat;
-	
+
 	return ecef;
 }
 
@@ -213,20 +213,20 @@ MATRIX ecef2ned(MATRIX ecef, MATRIX ned, MATRIX pos_ref)
 	 */
 	//MATRIX lla_ref = mat_creat(3,3,ZERO_MATRIX);
 	double lat, lon;
-	
+
 	//lla_ref = ecef2lla(ecef_ref, lla_ref);
 	//lat = lla_ref[0][0];
 	//lon = lla_ref[1][0];
-	
+
 	lat = pos_ref[0][0];
 	lon = pos_ref[1][0];
-	
+
 	ned[2][0]=-cos(lat)*cos(lon)*ecef[0][0]-cos(lat)*sin(lon)*ecef[1][0]-sin(lat)*ecef[2][0];
 	ned[1][0]=-sin(lon)*ecef[0][0] + cos(lon)*ecef[1][0];
 	ned[0][0]=-sin(lat)*cos(lon)*ecef[0][0]-sin(lat)*sin(lon)*ecef[1][0]+cos(lat)*ecef[2][0];
-	
+
 	//mat_free(lla_ref);
-	
+
 	return ned;
 }
 
@@ -237,7 +237,7 @@ MATRIX sk(MATRIX w, MATRIX C)
 	C[0][0] = 0.0;			C[0][1] = -w[2][0];		C[0][2] = w[1][0];
 	C[1][0] = w[2][0];		C[1][1] = 0.0;			C[1][2] = -w[0][0];
 	C[2][0] = -w[1][0];		C[2][1] = w[0][0];		C[2][2] = 0.0;
-	
+
 	return C;
 }
 
@@ -254,7 +254,7 @@ MATRIX ortho(MATRIX C, MATRIX C_ortho)
 	Created:    	 May 10, 2011
 	Last Modified: May 10, 2011
 	*/
-	
+
 	MATRIX e = mat_creat(3,1,ONES_MATRIX);
 	MATRIX w1 = mat_creat(3,1,ONES_MATRIX);
 	MATRIX w1_p = mat_creat(3,1,ONES_MATRIX);
@@ -266,49 +266,49 @@ MATRIX ortho(MATRIX C, MATRIX C_ortho)
 	MATRIX w3_p = mat_creat(3,1,ONES_MATRIX);
 	MATRIX w3_n = mat_creat(3,1,ONES_MATRIX);
 	double mag_w1, mag_w2, mag_w3;
-	
-	w1[0][0] = C[0][0]; 
+
+	w1[0][0] = C[0][0];
 	w1[1][0] = C[1][0];
 	w1[2][0] = C[2][0];
 	mag_w1 = norm(w1);
 	mag_w1 = 1.0/mag_w1;
 	w1 = mat_scalMul(w1,mag_w1,w1);
-	
-	w2[0][0] = C[0][1]; 
+
+	w2[0][0] = C[0][1];
 	w2[1][0] = C[1][1];
 	w2[2][0] = C[2][1];
 	mag_w2 = norm(w2);
 	mag_w2 = 1.0/mag_w2;
 	w2 = mat_scalMul(w2,mag_w2,w2);
-	
-	w3[0][0] = C[0][2]; 
+
+	w3[0][0] = C[0][2];
 	w3[1][0] = C[1][2];
 	w3[2][0] = C[2][2];
 	mag_w3 = norm(w3);
 	mag_w3 = 1.0/mag_w3;
 	w3 = mat_scalMul(w3,mag_w3,w3);
-	
+
 	while (norm(e) > 1e-15){
 		w1_p = cross(w2,w3,w1_p);
 		w2_p = cross(w3,w1,w2_p);
 		w3_p = cross(w1,w2,w3_p);
-		
+
 		w1_n = mat_add(w1,w1_p,w1_n);
 		w1_n = mat_scalMul(w1_n,0.5,w1_n);
 		w1 = mat_scalMul(w1_n,1.0/norm(w1_n),w1);
-		
+
 		w2_n = mat_add(w2,w2_p,w2_n);
 		w2_n = mat_scalMul(w2_n,0.5,w2_n);
 		w2 = mat_scalMul(w2_n,1.0/norm(w2_n),w2);
-		
+
 		w3_n = mat_add(w3,w3_p,w3_n);
 		w3_n = mat_scalMul(w3_n,0.5,w3_n);
 		w3 = mat_scalMul(w3_n,1.0/norm(w3_n),w3);
-		
+
 		w1_p = cross(w2,w3,w1_p);
 		w2_p = cross(w3,w1,w2_p);
 		w3_p = cross(w1,w2,w3_p);
-		
+
 		w1_n = mat_sub(w1,w1_p,w1_n);
 		e[0][0] = norm(w1_n);
 		w2_n = mat_sub(w2,w2_p,w2_n);
@@ -316,21 +316,21 @@ MATRIX ortho(MATRIX C, MATRIX C_ortho)
 		w3_n = mat_sub(w3,w3_p,w3_n);
 		e[2][0] = norm(w3_n);
 	}
-	
+
 	C_ortho[0][0] = w1[0][0]; C_ortho[0][1] = w2[0][0];	C_ortho[0][2] = w3[0][0];
 	C_ortho[1][0] = w1[1][0]; C_ortho[1][1] = w2[1][0];	C_ortho[1][2] = w3[1][0];
 	C_ortho[2][0] = w1[2][0]; C_ortho[2][1] = w2[2][0];	C_ortho[2][2] = w3[2][0];
-	
+
 	return C_ortho;
 }
 
-double norm (MATRIX a) 
+double norm (MATRIX a)
 {
 	int i;
 	double mag = 0.0;
-	
+
 	for (i=0;i<3;i++) mag += a[i][0]*a[i][0];
-	
+
 	return sqrt(mag);
 }
 
@@ -351,9 +351,9 @@ void qmult(double *p, double *q, double *r)
 	/* Quaternion Multiplication: r = p x q
 	 */
 	int i;
-	
+
 	for(i=0;i<3;i++) r[i] = 0.0;
-	
+
 	r[0] = p[0]*q[0] - (p[1]*q[1] + p[2]*q[2] + p[3]*q[3]);
 	r[1] = p[0]*q[1] + q[0]*p[1] + p[2]*q[3] - p[3]*q[2];
 	r[2] = p[0]*q[2] + q[0]*p[2] + p[3]*q[1] - p[1]*q[3];
@@ -364,7 +364,7 @@ void quat2eul(double *q, double *phi, double *the, double *psi) {
 	// Quaternion to Euler Angle
 	double q0, q1, q2, q3;
 	double m11, m12, m13, m23, m33;
-	
+
 	q0 = q[0];
 	q1 = q[1];
 	q2 = q[2];
@@ -375,7 +375,7 @@ void quat2eul(double *q, double *phi, double *the, double *psi) {
 	m13 = 2*q1*q3 - 2*q0*q2;
 	m23 = 2*q2*q3 + 2*q0*q1;
 	m33 = 2*q0*q0 + 2*q3*q3 - 1;
-	
+
 	*psi = atan2(m12,m11);
 	*the = asin(-m13);
 	*phi = atan2(m23,m33);
@@ -385,10 +385,10 @@ void eul2quat(double *q, double phi, double the, double psi) {
 	phi = phi/2.0;
 	the = the/2.0;
 	psi = psi/2.0;
-	
-	q[0] = cos(psi)*cos(the)*cos(phi) + sin(psi)*sin(the)*sin(phi);  
+
+	q[0] = cos(psi)*cos(the)*cos(phi) + sin(psi)*sin(the)*sin(phi);
 	q[1] = cos(psi)*cos(the)*sin(phi) - sin(psi)*sin(the)*cos(phi);
-	q[2] = cos(psi)*sin(the)*cos(phi) + sin(psi)*cos(the)*sin(phi);  
+	q[2] = cos(psi)*sin(the)*cos(phi) + sin(psi)*cos(the)*sin(phi);
 	q[3] = sin(psi)*cos(the)*cos(phi) - cos(psi)*sin(the)*sin(phi);
 }
 
@@ -400,16 +400,16 @@ MATRIX quat2dcm(double *q, MATRIX C_N2B) {
 	C_N2B[0][0] = 2*q0*q0 - 1 + 2*q1*q1;
 	C_N2B[1][1] = 2*q0*q0 - 1 + 2*q2*q2;
 	C_N2B[2][2] = 2*q0*q0 - 1 + 2*q3*q3;
-	
+
 	C_N2B[0][1] = 2*q1*q2 + 2*q0*q3;
 	C_N2B[0][2] = 2*q1*q3 - 2*q0*q2;
-	
+
 	C_N2B[1][0] = 2*q1*q2 - 2*q0*q3;
 	C_N2B[1][2] = 2*q2*q3 + 2*q0*q1;
-	
+
 	C_N2B[2][0] = 2*q1*q3 + 2*q0*q2;
 	C_N2B[2][1] = 2*q2*q3 - 2*q0*q1;
-	
+
 	return(C_N2B);
 }
 
