@@ -152,6 +152,8 @@ struct inceptor {
 	double pitch;		///< pitch stick command from the pilot, ND
 	double yaw;			///< yaw stick command from the pilot, ND
 	double roll;		///< roll stick command from the pilot, ND
+	double mode;		//added to run with mAEWing1 mission code
+	double select;		//added to run with mAEWing1 mission code
 };
 
 /// Mission manager Data structure
@@ -159,6 +161,8 @@ struct mission {
 	unsigned short mode;		///< mode variable; 0 = dump data, 1 = manual control, 2 = autopilot control
 	unsigned short run_num;		///< counter for number of autopilot engagements
 	unsigned short researchNav;	///< mode variable; 0 = standard nav filter, 1 = research nav filter
+	unsigned short claw_mode;		//added to run with mAEWing1 mission code
+	unsigned short claw_select;		//added to run with mAEWing1 mission code
 };
 
 /// Control Data structure
@@ -276,6 +280,10 @@ struct researchNav {
 
 /// Combined sensor data structure
 struct sensordata {
+	double dr_in;
+	double da_l_in;
+	double da_r_in;
+	double de_in;
 	struct imu *imuData_ptr; 			///< pointer to imu data structure
 	struct gps *gpsData_ptr;			///< pointer to gps data structure
 	struct gps *gpsData_l_ptr;			///< pointer to left gps data structure
