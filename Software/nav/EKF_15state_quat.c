@@ -31,8 +31,8 @@
 
 #include "../globaldefs.h"
 //#include "../extern_vars.h"
-#include "matrix.h"
-#include "misc.h"
+#include "../utils/matrix.h"
+#include "../utils/misc.h"
 
 #include "nav_functions.h"
 #include "nav_interface.h"
@@ -553,3 +553,4 @@ void close_nav(void){
 	mat_free(temp1512);
 
 }
+
