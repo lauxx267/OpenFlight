@@ -1301,3 +1301,12 @@ MATRIX mat_subcopy(MATRIX A, int row, int col, MATRIX B)
 	}
 	return(B);
 }
+
+// Cross product of 3x1 vectors A x B
+MATRIX mat_cross(MATRIX A, MATRIX B, MATRIX C)
+{
+	C[0][0] = A[1][0]*B[2][0] - A[2][0]*B[1][0];
+	C[1][0] = -A[0][0]*B[2][0] + A[2][0]*B[0][0];
+	C[2][0] = A[0][0]*B[1][0] - A[1][0]*B[0][0];
+	return(C);
+}
