@@ -58,12 +58,12 @@ enum   errdefs	{
 
 /// IMU Data Structure
 struct imu {
-	double p;	///< [rad/sec], body X axis angular rate (roll)
-	double q;	///< [rad/sec], body Y axis angular rate (pitch)
-	double r;	///< [rad/sec], body Z axis angular rate (yaw)
-	double ax;	///< [m/sec^2], body X axis acceleration
-	double ay;	///< [m/sec^2], body Y axis acceleration
-	double az;	///< [m/sec^2], body Z axis acceleration
+	double p_imu_rps;	///< [rad/sec], body X axis angular rate (roll)
+	double q_imu_rps;	///< [rad/sec], body Y axis angular rate (pitch)
+	double r_imu_rps;	///< [rad/sec], body Z axis angular rate (yaw)
+	double xAcceleration_imu_mpsSq;	///< [m/sec^2], body X axis acceleration
+	double yAcceleration_imu_mpsSq;	///< [m/sec^2], body Y axis acceleration
+	double zAcceleration_imu_mpsSq;	///< [m/sec^2], body Z axis acceleration
 	double hx;	///< [Gauss], body X axis magnetic field
 	double hy;	///< [Gauss], body Y axis magnetic field
 	double hz;	///< [Gauss], body Z axis magnetic field
@@ -73,18 +73,18 @@ struct imu {
 	float  T;	///< [degC], temperature of IMU sensor
 	float  Vs;	///< [Volts], supply voltage of IMU sensor
 	double adc; ///< [counts], ADC reading
-	enum errdefs err_type; ///< IMU status
-	double time; ///< [sec], timestamp of IMU data
+	enum errdefs err_type_imu; ///< IMU status
+	double time_imu_sec; ///< [sec], timestamp of IMU data
 };
 
 /// GPS Data Structure
 struct gps {
-	double lat;	///< [deg], Geodetic latitude
-	double lon;	///< [deg], Geodetic longitude
-	double alt;	///< [m], altitude relative to WGS84
-	double ve;	///< [m/sec], East velocity
-	double vn;	///< [m/sec], North velocity
-	double vd;	///< [m/sec], Down velocity
+	double latitude_gps_degs;	///< [deg], Geodetic latitude
+	double longitude_gps_degs;	///< [deg], Geodetic longitude
+	double altitude_gps_m;	///< [m], altitude relative to WGS84
+	double eastVelocity_gps_mps;	///< [m/sec], East velocity
+	double northVelocity_gps_mps;	///< [m/sec], North velocity
+	double downVelocity_gps_mps;	///< [m/sec], Down velocity
 	double Xe;	///< [m], X position, ECEF
 	double Ye;	///< [m], Y position, ECEF
 	double Ze;	///< [m], Z position, ECEF
@@ -92,20 +92,20 @@ struct gps {
 	double Ve;	///< [m/sec], Y velocity, ECEF
 	double We;	///< [m/sec], Z velocity, ECEF
     double sig_N; ///< [m], Position error standard deviation in the North direction
-    double sig_E; ///< [m], Position error standard deviation in the East direction
-    double sig_D; ///< [m], Position error standard deviation in the Down direction
+	double sig_E; ///< [m], Position error standard deviation in the East direction
+	double sig_D; ///< [m], Position error standard deviation in the Down direction
     double sig_vn; ///< [m/sec], Velocity error standard deviation in the North direction
     double sig_ve; ///< [m/sec], Velocity error standard deviation in the East direction
     double sig_vd; ///< [m/sec], Velocity error standard deviation in the Down direction
 	double GPS_TOW;	///< [sec], GPS Time Of Week
 	double courseOverGround;///< [rad], course over the ground, relative to true North
 	double speedOverGround;	///< [rad], speed over the ground
-	double time;	///< [sec], timestamp of GPS data
+	double time_gps_sec;	///< [sec], timestamp of GPS data
 	unsigned short newData;	///< [bool], flag set when GPS data has been updated
 	unsigned short satVisible; ///< Number satellites used in the position solution
 	unsigned short navValid;///< flag indicating whether the solution is valid, 0 = valid
 	unsigned short GPS_week;///< GPS week since current epoch.
-	enum errdefs err_type;	///< GPS status
+	enum errdefs err_type_GPS;	///< GPS status
 	int baudRate;		///< Baud rate for serial port
 	char* portName;		///< Name of serial port
 	int port;			///< handle for accessing serial port
@@ -113,6 +113,7 @@ struct gps {
     int bytesInLocalBuffer; ///< number of bytes in the local buffer
     int readState;			///< current state of serial data reader function
     int read_calls;			///< number of times the read_gps function has been called
+
 };
 
 /// Air Data Structure
@@ -131,7 +132,7 @@ struct airdata {
 	double r_beta;	///< [rad], angle of sideslip, from right vane
 	double Pd_aoa;  ///< [KPa], dynamic pressure for aoa, from 5-hole Pitot probe
 	double Pd_aos;	///< [KPa], dynamic pressure for aos, from 5-hole Pitot probe
-	double bias[10];///< array for storing biases for air data.
+	double bias_airdata[10];///< array for storing biases for air data.
 	unsigned short status;	///< status bitfield for air data sensors.
 };
 
@@ -200,28 +201,28 @@ struct control {
 
 /// Navigation Filter Data Structure
 struct nav {
-	double lat;		///< [rad], geodetic latitude estimate
-	double lon;		///< [rad], geodetic longitude estimate
-	double alt;		///< [m], altitude relative to WGS84 estimate
-	double vn;		///< [m/sec], north velocity estimate
-	double ve;		///< [m/sec], east velocity estimate
-	double vd;		///< [m/sec], down velocity estimate
-	double phi;		///< [rad], Euler roll angle estimate
-	double the;		///< [rad], Euler pitch angle estimate
-	double psi;		///< [rad], Euler yaw angle estimate
-	double quat[4];	///< Quaternions estimate
-	double ab[3];	///< [m/sec^2], accelerometer bias estimate
-	double gb[3];	///< [rad/sec], rate gyro bias estimate
+	double latitude_nav_rads;		///< [rad], geodetic latitude estimate
+	double longitude_nav_rads;		///< [rad], geodetic longitude estimate
+	double altitude_nav_m;		///< [m], altitude relative to WGS84 estimate
+	double northVelocity_nav_mps;		///< [m/sec], north velocity estimate
+	double eastVelocity_nav_mps;		///< [m/sec], east velocity estimate
+	double downVelocity_nav_mps;		///< [m/sec], down velocity estimate
+	double rollAngle_nav_rads;		///< [rad], Euler roll angle estimate
+	double pitchAngle_nav_rads;		///< [rad], Euler pitch angle estimate
+	double yawAngle_nav_rad;		///< [rad], Euler yaw angle estimate
+	double quat_nav[4];	///< Quaternions estimate
+	double accelerometerBias_nav_mpsSq[3];	///< [m/sec^2], accelerometer bias estimate
+	double gyroBias_nav_rps[3];	///< [rad/sec], rate gyro bias estimate
 	double asf[3];	///< [m/sec^2], accelerometer scale factor estimate
 	double gsf[3];	///< [rad/sec], rate gyro scale factor estimate
-	double Pp[3];	///< [rad], covariance estimate for position
-	double Pv[3];	///< [rad], covariance estimate for velocity
-	double Pa[3];	///< [rad], covariance estimate for angles
-	double Pab[3];	///< [rad], covariance estimate for accelerometer bias
-	double Pgb[3];	///< [rad], covariance estimate for rate gyro bias
+	double covariancePosition_nav_rads[3];	///< [rad], covariance estimate for position
+	double covarianceVelocity_nav_rads[3];	///< [rad], covariance estimate for velocity
+	double covarianceAngles_nav_rads[3];	///< [rad], covariance estimate for angles
+	double covarianceAccelBias_nav_rads[3];	///< [rad], covariance estimate for accelerometer bias
+	double covarianceGyroBias_nav_rads[3];	///< [rad], covariance estimate for rate gyro bias
 	double Pasf[3];	///< [rad], covariance estimate for accelerometer scale factor
 	double Pgsf[3];	///< [rad], covariance estimate for rate gyro scale factor
-	enum errdefs err_type;	///< NAV filter status
+	enum errdefs err_type_nav;	///< NAV filter status
 	double time;			///< [sec], timestamp of NAV filter
 	double wn;			///< [m/s], estimated wind speed in the north direction
 	double we;			///< [m/s], estimated wind speed in the east direction
