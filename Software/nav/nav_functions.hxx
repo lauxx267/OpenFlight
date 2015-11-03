@@ -20,6 +20,7 @@
  */
 
 //#include "matrix.h"
+#include "../props.hxx"
 #ifndef NAV_FUNCTIONS_H_
 #define NAV_FUNCTIONS_H_
 
@@ -70,14 +71,25 @@ MATRIX ortho(MATRIX C, MATRIX C_ortho);
 double norm (MATRIX a);
 
 MATRIX cross (MATRIX a, MATRIX b, MATRIX c);
+/////////////////*****************************************************
+/*SGPropertyNode *p_imu_rps = fgGetNode("/imu/p_imu_rps", 0, true);							///< [rad/sec], body X axis angular rate (roll)
+SGPropertyNode *q_imu_rps = fgGetNode("/imu/q_imu_rps", 0, true);							///< [rad/sec], body Y axis angular rate (pitch)
+SGPropertyNode *r_imu_rps = fgGetNode("/imu/r_imu_rps", 0, true);							///< [rad/sec], body Z axis angular rate (yaw)
+SGPropertyNode *rollAngle_nav_rads = fgGetNode("/nav/rollAngle_nav_rads", true);			///< [rad], Euler roll angle estimate
+SGPropertyNode *pitchAngle_nav_rads = fgGetNode("/nav/pitchAngle_nav_rads", true);			///< [rad], Euler pitch angle estimate
+SGPropertyNode *yawAngle_nav_rads = fgGetNode("/nav/yawAngle_nav_rads", true);				///< [rad], Euler yaw angle estimate
+*/
+void qmult(SGPropertyNode *p_imu_rps[4], SGPropertyNode *q_imu_rps[4], SGPropertyNode *r_imu_rps[4]);
+//void qmult(double *p, double *q, double *r);
 
-void qmult(double *p, double *q, double *r);
+void quat2eul(SGPropertyNode *q_imu_rps[4], SGPropertyNode *rollAngle_nav_rads, SGPropertyNode *pitchAngle_nav_rads, SGPropertyNode *yawAngle_nav_rads);
+//void quat2eul(double *q, double *phi, double *the, double *psi);
 
-void quat2eul(double *q, double *phi, double *the, double *psi);
+void eul2quat(SGPropertyNode *q_imu_rps, SGPropertyNode *rollAngle_nav_rads, SGPropertyNode *pitchAngle_nav_rads, SGPropertyNode *yawAngle_nav_rads);
+//void eul2quat(double *q, double phi, double the, double psi);
 
-void eul2quat(double *q, double phi, double the, double psi);
-
-MATRIX quat2dcm(double *q, MATRIX C_N2B);
+MATRIX quat2dcm(SGPropertyNode *q_imu_rps[4], MATRIX C_N2B);
+//MATRIX quat2dcm(double *q, MATRIX C_N2B);
 /*=====================================================================*/
 /*=====================================================================*/
 /*=====================================================================*/
@@ -143,3 +155,4 @@ void eCntrans(MATRIX e_C_n, MATRIX LatLon);
  */
 void lCbtrans(MATRIX l_C_b, MATRIX YawPitchRoll);
 #endif
+
