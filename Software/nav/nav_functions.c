@@ -26,18 +26,16 @@
 
 #include <math.h>
 #include "../utils/matrix.h"
-#include "nav_functions.hxx"
-#include "../props.hxx"
+#include "nav_functions.h"
 
 /*=================================================================*/
-
 MATRIX eul2dcm(MATRIX euler, MATRIX dcm)
 {
 	/* Function:     MATRIX eul2dcm(MATRIX euler, MATRIX dcm)
 	 * ----------------------------------------------------------------
 	 * This function creates the direction cosine matrix (DCM) that
 	 * transforms a vector from navigation frame to the body frame given
-	 * a set of Euler Angle in the form of [rollAngle_nav_rads theta yawAngle_nav_rads] for a 3-2-1
+	 * a set of Euler Angle in the form of [phi theta psi] for a 3-2-1
 	 * rotation sequence
 	 */
   double cPHI,sPHI,cTHE,sTHE,cPSI,sPSI;
@@ -63,7 +61,7 @@ MATRIX dcm2eul(MATRIX euler, MATRIX dcm)
 	* use DCM from NED to Body-fixed as input to get the conevntional
 	* euler angles.
 	* The output argument 'euler' is a vector containing the
-	* the three euler angles in radians given in [rollAngle_nav_rads; theta; yawAngle_nav_rads] format.
+	* the three euler angles in radians given in [phi; theta; psi] format.
 	* Modified: Adhika Lie, 09/13/2011.
 	*/
 
@@ -77,7 +75,7 @@ MATRIX dcm2eul(MATRIX euler, MATRIX dcm)
 MATRIX create_R(MATRIX e, MATRIX R)
 {
 	/* This function is used to create the transformation matrix to get
-	 * rollAngle_nav_rads_dot, the_dot and yawAngle_nav_rads_dot from given pqr (body rate).
+	 * phi_dot, the_dot and psi_dot from given pqr (body rate).
 	 */
 	double ph, th, ps;
 
@@ -348,40 +346,29 @@ MATRIX cross (MATRIX a, MATRIX b, MATRIX c)
 /*=====================================================================*/
 /*======================= QUATERNION FUNCTIONS ========================*/
 /*=====================================================================*/
-void qmult(SGPropertyNode *p_imu_rps[4], SGPropertyNode *q_imu_rps[4], SGPropertyNode *r_imu_rps[4])
+void qmult(double *p, double *q, double *r)
 {
 	/* Quaternion Multiplication: r = p x q
 	 */
 	int i;
 
-	for(i=0;i<3;i++) r_imu_rps[i] = 0.0;
-
-	r_imu_rps[0] = p_imu_rps[0]*q_imu_rps[0] - (p_imu_rps[1]*q_imu_rps[1] + p_imu_rps[2]*q_imu_rps[2] + p_imu_rps[3]*q_imu_rps[3]);
-	r_imu_rps[1] = p_imu_rps[0]*q_imu_rps[1] + q_imu_rps[0]*p_imu_rps[1] + p_imu_rps[2]*q_imu_rps[3] - p_imu_rps[3]*q_imu_rps[2];
-	r_imu_rps[2] = p_imu_rps[0]*q_imu_rps[2] + q_imu_rps[0]*p_imu_rps[2] + p_imu_rps[3]*q_imu_rps[1] - p_imu_rps[1]*q_imu_rps[3];
-	r_imu_rps[3] = p_imu_rps[0]*q_imu_rps[3] + q_imu_rps[0]*p_imu_rps[3] + p_imu_rps[1]*q_imu_rps[2] - p_imu_rps[2]*q_imu_rps[1];
-
-	/*for(i=0;i<3;i++) r[i] = 0.0;
+	for(i=0;i<3;i++) r[i] = 0.0;
 
 	r[0] = p[0]*q[0] - (p[1]*q[1] + p[2]*q[2] + p[3]*q[3]);
 	r[1] = p[0]*q[1] + q[0]*p[1] + p[2]*q[3] - p[3]*q[2];
 	r[2] = p[0]*q[2] + q[0]*p[2] + p[3]*q[1] - p[1]*q[3];
-	r[3] = p[0]*q[3] + q[0]*p[3] + p[1]*q[2] - p[2]*q[1];*/
+	r[3] = p[0]*q[3] + q[0]*p[3] + p[1]*q[2] - p[2]*q[1];
 }
 
-void quat2eul(SGPropertyNode *q_imu_rps[4], SGPropertyNode *rollAngle_nav_rads, SGPropertyNode *pitchAngle_nav_rads, SGPropertyNode *yawAngle_nav_rads) {
+void quat2eul(double *q, double *phi, double *the, double *psi) {
 	// Quaternion to Euler Angle
 	double q0, q1, q2, q3;
 	double m11, m12, m13, m23, m33;
 
-	q0 = q_imu_rps[0];
-	q1 = q_imu_rps[1];
-	q2 = q_imu_rps[2];
-	q3 = q_imu_rps[3];
-	/*q0 = q[0];
+	q0 = q[0];
 	q1 = q[1];
 	q2 = q[2];
-	q3 = q[3];*/
+	q3 = q[3];
 
 	m11 = 2*q0*q0 +2*q1*q1 -1;
 	m12 = 2*q1*q2 + 2*q0*q3;
@@ -389,30 +376,26 @@ void quat2eul(SGPropertyNode *q_imu_rps[4], SGPropertyNode *rollAngle_nav_rads, 
 	m23 = 2*q2*q3 + 2*q0*q1;
 	m33 = 2*q0*q0 + 2*q3*q3 - 1;
 
-	yawAngle_nav_rads = atan2(m12,m11);
-	pitchAngle_nav_rads = asin(-m13);
-	rollAngle_nav_rads = atan2(m23,m33);
-	/**yawAngle_nav_rads = atan2(m12,m11);
-	*pitchAngle_nav_rads = asin(-m13);
-	*rollAngle_nav_rads = atan2(m23,m33);*/
+	*psi = atan2(m12,m11);
+	*the = asin(-m13);
+	*phi = atan2(m23,m33);
 }
 
-void eul2quat(SGPropertyNode *q_imu_rps[4], SGPropertyNode *rollAngle_nav_rads, SGPropertyNode *pitchAngle_nav_rads, SGPropertyNode *yawAngle_nav_rads) {
+void eul2quat(double *q, double phi, double the, double psi) {
+	phi = phi/2.0;
+	the = the/2.0;
+	psi = psi/2.0;
 
-	rollAngle_nav_rads = rollAngle_nav_rads/2.0;
-	pitchAngle_nav_rads = pitchAngle_nav_rads/2.0;
-	yawAngle_nav_rads = yawAngle_nav_rads/2.0;
-
-	q_imu_rps[0] = cos(yawAngle_nav_rads->getDoubleValue())*cos(pitchAngle_nav_rads->getDoubleValue())*cos(rollAngle_nav_rads->getDoubleValue()) + sin(yawAngle_nav_rads->getDoubleValue())*sin(pitchAngle_nav_rads->getDoubleValue())*sin(rollAngle_nav_rads->getDoubleValue());
-	q_imu_rps[1] = cos(yawAngle_nav_rads->getDoubleValue())*cos(pitchAngle_nav_rads->getDoubleValue())*sin(rollAngle_nav_rads->getDoubleValue()) - sin(yawAngle_nav_rads->getDoubleValue())*sin(pitchAngle_nav_rads->getDoubleValue())*cos(rollAngle_nav_rads->getDoubleValue());
-	q_imu_rps[2] = cos(yawAngle_nav_rads->getDoubleValue())*sin(pitchAngle_nav_rads->getDoubleValue())*cos(rollAngle_nav_rads->getDoubleValue()) + sin(yawAngle_nav_rads->getDoubleValue())*cos(pitchAngle_nav_rads->getDoubleValue())*sin(rollAngle_nav_rads->getDoubleValue());
-	q_imu_rps[3] = sin(yawAngle_nav_rads->getDoubleValue())*cos(pitchAngle_nav_rads->getDoubleValue())*cos(rollAngle_nav_rads->getDoubleValue()) - cos(yawAngle_nav_rads->getDoubleValue())*sin(pitchAngle_nav_rads->getDoubleValue())*sin(rollAngle_nav_rads->getDoubleValue());
+	q[0] = cos(psi)*cos(the)*cos(phi) + sin(psi)*sin(the)*sin(phi);
+	q[1] = cos(psi)*cos(the)*sin(phi) - sin(psi)*sin(the)*cos(phi);
+	q[2] = cos(psi)*sin(the)*cos(phi) + sin(psi)*cos(the)*sin(phi);
+	q[3] = sin(psi)*cos(the)*cos(phi) - cos(psi)*sin(the)*sin(phi);
 }
 
-MATRIX quat2dcm(SGPropertyNode *q_imu_rps[4], MATRIX C_N2B) {
+MATRIX quat2dcm(double *q, MATRIX C_N2B) {
 	// Quaternion to C_N2B
 	double q0, q1, q2, q3;
-	q0 = q_imu_rps[0]; q1 = q_imu_rps[1]; q2 = q_imu_rps[2]; q3 = q_imu_rps[3];
+	q0 = q[0]; q1 = q[1]; q2 = q[2]; q3 = q[3];
 
 	C_N2B[0][0] = 2*q0*q0 - 1 + 2*q1*q1;
 	C_N2B[1][1] = 2*q0*q0 - 1 + 2*q2*q2;
@@ -664,25 +647,21 @@ void eCntrans(MATRIX e_C_n, MATRIX LatLon)
 
 void lCbtrans(MATRIX l_C_b, MATRIX YawPitchRoll)
 {
-    double yawAngle_nav_rads,theta,rollAngle_nav_rads;
+    double psi,theta,phi;
 
-    yawAngle_nav_rads=YawPitchRoll[0][0];
+    psi=YawPitchRoll[0][0];
     theta=YawPitchRoll[1][0];
-    rollAngle_nav_rads=YawPitchRoll[2][0];
+    phi=YawPitchRoll[2][0];
 
-    l_C_b[0][0]=cos(theta)*cos(yawAngle_nav_rads);
-    l_C_b[0][1]=-cos(rollAngle_nav_rads)*sin(yawAngle_nav_rads)+sin(rollAngle_nav_rads)*sin(theta)*cos(yawAngle_nav_rads);
-    l_C_b[0][2]=sin(rollAngle_nav_rads)*sin(yawAngle_nav_rads)+cos(rollAngle_nav_rads)*sin(theta)*cos(yawAngle_nav_rads);
+    l_C_b[0][0]=cos(theta)*cos(psi);
+    l_C_b[0][1]=-cos(phi)*sin(psi)+sin(phi)*sin(theta)*cos(psi);
+    l_C_b[0][2]=sin(phi)*sin(psi)+cos(phi)*sin(theta)*cos(psi);
 
-    l_C_b[1][0]=cos(theta)*sin(yawAngle_nav_rads);
-    l_C_b[1][1]=cos(rollAngle_nav_rads)*cos(yawAngle_nav_rads)+sin(rollAngle_nav_rads)*sin(theta)*sin(yawAngle_nav_rads);
-    l_C_b[1][2]=-sin(rollAngle_nav_rads)*cos(yawAngle_nav_rads)+cos(rollAngle_nav_rads)*sin(theta)*sin(yawAngle_nav_rads);
+    l_C_b[1][0]=cos(theta)*sin(psi);
+    l_C_b[1][1]=cos(phi)*cos(psi)+sin(phi)*sin(theta)*sin(psi);
+    l_C_b[1][2]=-sin(phi)*cos(psi)+cos(phi)*sin(theta)*sin(psi);
 
     l_C_b[2][0]=-sin(theta);
-    l_C_b[2][1]=sin(rollAngle_nav_rads)*cos(theta);
-    l_C_b[2][2]=cos(rollAngle_nav_rads)*cos(theta);
+    l_C_b[2][1]=sin(phi)*cos(theta);
+    l_C_b[2][2]=cos(phi)*cos(theta);
 }
-
-
-
-
